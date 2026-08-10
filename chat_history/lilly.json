@@ -1,0 +1,22 @@
+[
+  {
+    "role": "user",
+    "text": "hii",
+    "time": "2026-08-10 10:45:14"
+  },
+  {
+    "role": "milo",
+    "text": "Hey there! What can I do for you today?",
+    "time": "2026-08-10 10:45:14"
+  },
+  {
+    "role": "user",
+    "text": "gemini",
+    "time": "2026-08-10 10:45:32"
+  },
+  {
+    "role": "milo",
+    "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans (apply, check status)\n\u2022 Transactions\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"what's my loan status\".",
+    "time": "2026-08-10 10:45:32"
+  }
+]

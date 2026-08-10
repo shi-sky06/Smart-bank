@@ -1,0 +1,62 @@
+[
+  {
+    "role": "user",
+    "text": "elephant",
+    "time": "2026-08-10 11:18:22"
+  },
+  {
+    "role": "milo",
+    "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans (apply, check status)\n\u2022 Transactions\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"what's my loan status\".",
+    "time": "2026-08-10 11:18:22"
+  },
+  {
+    "role": "user",
+    "text": "balance",
+    "time": "2026-08-10 12:15:06"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! I can show your account balance on the Dashboard.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-10 12:15:06"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-10 12:15:11"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-10 12:15:11"
+  },
+  {
+    "role": "user",
+    "text": "hii",
+    "time": "2026-08-10 14:09:38"
+  },
+  {
+    "role": "milo",
+    "text": "Hey there! What can I do for you today?",
+    "time": "2026-08-10 14:09:38"
+  },
+  {
+    "role": "user",
+    "text": "how much did I spend this month",
+    "time": "2026-08-10 14:11:59"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! Over the last 30 days, you spent a total of \u20b948,200.00 across 7 transactions. Your biggest category was Transfers, which accounted for \u20b937,000.00 of your overall spending.",
+    "time": "2026-08-10 14:12:03"
+  },
+  {
+    "role": "user",
+    "text": "who did i sent it  too",
+    "time": "2026-08-10 14:12:23"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! You can see who received your payment by checking your transaction history in the SmartBank app. Alternatively, just ask me to \"check my recent transfers\" and I can look that up for you right away. Let me know how else I can help!",
+    "time": "2026-08-10 14:12:28"
+  }
+]
