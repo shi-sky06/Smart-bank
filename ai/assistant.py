@@ -1,27 +1,3 @@
-"""
-ai/assistant.py
-
-Milo, SmartBank's assistant. Hybrid design:
-
-1. RULE-BASED FIRST — fast, reliable keyword matching for anything
-   that needs to trigger real navigation (deposit, withdraw, transfer,
-   loans, transactions, balance) or answer from the database directly
-   (loan status, spending summary). This never depends on network access
-   except for the spending summary's Gemini paraphrase step, which has
-   a raw-text fallback.
-
-2. GEMINI FALLBACK — if nothing rule-based matches, the message is
-   sent to Google's Gemini API for a general conversational answer
-   (FAQs, small talk, anything open-ended). Requires GEMINI_API_KEY
-   in your .env file. If it's missing or the API call fails, Milo
-   falls back to a friendly "not sure" menu instead of crashing.
-
-Usage (unchanged from before):
-    from ai.assistant import ask_assistant
-    response = ask_assistant("I want to check my balance")
-    # -> {"reply": "...", "action": "balance"}
-"""
-
 import re
 import random
 import os

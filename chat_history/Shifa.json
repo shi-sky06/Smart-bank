@@ -58,5 +58,95 @@
     "role": "milo",
     "text": "Great, opening that for you now.",
     "time": "2026-08-11 16:40:15"
+  },
+  {
+    "role": "user",
+    "text": "hii withdrawals",
+    "time": "2026-08-11 18:10:57"
+  },
+  {
+    "role": "milo",
+    "text": "I can help you withdraw funds. Want me to open the Withdraw page?\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 18:10:57"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-11 18:11:00"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-11 18:11:00"
+  },
+  {
+    "role": "user",
+    "text": "I want to deposit money",
+    "time": "2026-08-11 18:18:12"
+  },
+  {
+    "role": "milo",
+    "text": "Sure, let's get that deposit sorted. Opening the Deposit page.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 18:18:13"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-11 18:18:21"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-11 18:18:21"
+  },
+  {
+    "role": "user",
+    "text": "can you get last 5 transactions",
+    "time": "2026-08-11 18:19:12"
+  },
+  {
+    "role": "milo",
+    "text": "Sure, let's review your transaction history.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 18:19:12"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-11 18:19:17"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-11 18:19:17"
+  },
+  {
+    "role": "user",
+    "text": "least amount transaction done",
+    "time": "2026-08-11 18:19:49"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! I can help you look through your transaction history to find your smallest payment. You can also view all your recent activity anytime directly in the SmartBank app. If you ever need to make a deposit, withdrawal, or transfer, just ask me to do that for you!",
+    "time": "2026-08-11 18:19:54"
+  },
+  {
+    "role": "user",
+    "text": "get me 11-08-2026 transactions",
+    "time": "2026-08-11 18:21:17"
+  },
+  {
+    "role": "milo",
+    "text": "Sure, let's review your transaction history.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 18:21:17"
+  },
+  {
+    "role": "user",
+    "text": "show me transactions with name murli",
+    "time": "2026-08-11 18:22:12"
+  },
+  {
+    "role": "milo",
+    "text": "Sure, let's review your transaction history.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 18:22:12"
   }
 ]
