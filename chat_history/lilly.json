@@ -128,5 +128,35 @@
     "role": "milo",
     "text": "Great, opening that for you now.",
     "time": "2026-08-11 12:29:47"
+  },
+  {
+    "role": "user",
+    "text": "find my smallest transaction",
+    "time": "2026-08-11 18:42:15"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction was \u20b93,000.00 (Withdraw) on 2026-08-10 11:44:46.",
+    "time": "2026-08-11 18:42:15"
+  },
+  {
+    "role": "user",
+    "text": "find my largest transaction",
+    "time": "2026-08-11 18:42:28"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b945,000.00 (Deposit) on 2026-08-10 10:24:15.",
+    "time": "2026-08-11 18:42:28"
+  },
+  {
+    "role": "user",
+    "text": "find my transaction on 10-08-2026",
+    "time": "2026-08-11 18:42:52"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! You can view all your past account activity by heading over to the **Transaction History** page in the SmartBank app. Once there, simply filter by the date 10-08-2026 to locate your transaction details. Let me know if you need help navigating anywhere else!",
+    "time": "2026-08-11 18:42:56"
   }
 ]
