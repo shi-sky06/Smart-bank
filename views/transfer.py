@@ -215,13 +215,12 @@ class TransferPage(ctk.CTkFrame):
             # Update session balance
             new_balance = sender_balance - amount
 
-            session.current_user = (
-                session.current_user[0],
-                session.current_user[1],
-                session.current_user[2],
-                session.current_user[3],
-                new_balance
-            )
+            # Update session balance
+            new_balance = sender_balance - amount
+
+            current = list(session.current_user)
+            current[4] = new_balance
+            session.current_user = tuple(current)
 
             messagebox.showinfo(
                 "Success",

@@ -18,5 +18,115 @@
     "role": "milo",
     "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans (apply, check status)\n\u2022 Transactions\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"what's my loan status\".",
     "time": "2026-08-10 10:45:32"
+  },
+  {
+    "role": "user",
+    "text": "hii trnasfers",
+    "time": "2026-08-10 17:13:27"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! Ask me about deposits, withdrawals, transfers, loans, or your balance.",
+    "time": "2026-08-10 17:13:27"
+  },
+  {
+    "role": "user",
+    "text": "transfers",
+    "time": "2026-08-10 17:13:36"
+  },
+  {
+    "role": "milo",
+    "text": "I can help you transfer money. Want me to open the Transfer page?\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-10 17:13:36"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-10 17:13:40"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-10 17:13:40"
+  },
+  {
+    "role": "user",
+    "text": "guide me to deposite money",
+    "time": "2026-08-10 17:13:54"
+  },
+  {
+    "role": "milo",
+    "text": "Sure, let's get that deposit sorted. Opening the Deposit page.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-10 17:13:54"
+  },
+  {
+    "role": "user",
+    "text": "how do i do it",
+    "time": "2026-08-10 17:14:06"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! I'm Milo, and I'd be happy to help, but I need a little more detail on what you'd like to do. If you want to transfer money, make a deposit, withdraw funds, or apply for a loan, you can simply ask me to do that action for you right here! What would you like to get started on today?",
+    "time": "2026-08-10 17:14:11"
+  },
+  {
+    "role": "user",
+    "text": "deposit,",
+    "time": "2026-08-10 17:14:21"
+  },
+  {
+    "role": "milo",
+    "text": "I can help you make a deposit. Want me to open the Deposit page?\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-10 17:14:21"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-10 17:14:23"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-10 17:14:23"
+  },
+  {
+    "role": "user",
+    "text": "hii withdraws",
+    "time": "2026-08-11 12:29:32"
+  },
+  {
+    "role": "milo",
+    "text": "Let's process that withdrawal \u2014 opening the Withdraw page.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 12:29:33"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-11 12:29:36"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-11 12:29:36"
+  },
+  {
+    "role": "user",
+    "text": "I want to deposit money",
+    "time": "2026-08-11 12:29:43"
+  },
+  {
+    "role": "milo",
+    "text": "I can help you make a deposit. Want me to open the Deposit page?\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 12:29:43"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-11 12:29:47"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-11 12:29:47"
   }
 ]

@@ -45,48 +45,64 @@ class DashboardPage(ctk.CTkFrame):
 
         self.configure(fg_color="transparent")
 
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+
         # =========================
-        # Fetch User Data
+        # Fetch User Data (error-safe)
         # =========================
-        conn = sqlite3.connect("bank.db")
-        cursor = conn.cursor()
+        user = None
+        transactions = []
+        fetch_error = None
 
-        user_id = session.current_user[0]
+        try:
+            conn = sqlite3.connect("bank.db")
+            cursor = conn.cursor()
 
-        cursor.execute("""
-            SELECT id, name, username, balance
-            FROM users
-            WHERE id=?
-        """, (user_id,))
+            user_id = session.current_user[0]
 
-        user = cursor.fetchone()
+            cursor.execute("""
+                SELECT id, name, username, balance
+                FROM users
+                WHERE id=?
+            """, (user_id,))
 
-        if user is None:
+            user = cursor.fetchone()
+
+            if user is not None:
+                cursor.execute("""
+                    SELECT transaction_type, amount
+                    FROM transactions
+                    WHERE user_id=?
+                    ORDER BY date DESC
+                    LIMIT 5
+                """, (user[0],))
+
+                transactions = cursor.fetchall()
+
             conn.close()
+
+        except (TypeError, IndexError):
+            # session.current_user missing or malformed
+            fetch_error = "You're not logged in. Please log in again."
+
+        except sqlite3.Error as e:
+            fetch_error = f"Could not load your dashboard right now.\n\nDatabase error: {e}"
+
+        if user is None and fetch_error is None:
+            fetch_error = "We couldn't find your account. Please log in again."
+
+        if fetch_error:
+            self._build_error_state(fetch_error)
             return
 
         user_id = user[0]
         name = user[1]
         balance = user[3]
 
-        cursor.execute("""
-            SELECT transaction_type, amount
-            FROM transactions
-            WHERE user_id=?
-            ORDER BY date DESC
-            LIMIT 5
-        """, (user_id,))
-
-        transactions = cursor.fetchall()
-
-        conn.close()
-
         # =========================
         # Layout
         # =========================
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(0, weight=1)
-
         container = ctk.CTkScrollableFrame(self, fg_color="transparent")
         container.grid(row=0, column=0, sticky="nsew", padx=20, pady=20)
 
@@ -250,7 +266,11 @@ class DashboardPage(ctk.CTkFrame):
             text_color=COLOR_TEXT_DARK
         ).pack(side="left")
 
-        badges = get_user_achievements(user_id)
+        try:
+            badges = get_user_achievements(user_id)
+        except Exception:
+            badges = []
+
         unlocked_count = sum(1 for b in badges if b["unlocked"])
 
         ctk.CTkLabel(
@@ -308,6 +328,49 @@ class DashboardPage(ctk.CTkFrame):
                 font=("Arial", 15),
                 text_color=COLOR_TEXT_MUTED
             ).pack(pady=20)
+
+    # =========================
+    # Error state (replaces the whole page body on failure)
+    # =========================
+    def _build_error_state(self, message):
+        wrapper = ctk.CTkFrame(self, fg_color="transparent")
+        wrapper.grid(row=0, column=0, sticky="nsew")
+        wrapper.grid_rowconfigure(0, weight=1)
+        wrapper.grid_columnconfigure(0, weight=1)
+
+        card = ctk.CTkFrame(
+            wrapper,
+            corner_radius=15,
+            fg_color=COLOR_CARD_BG,
+            border_width=1,
+            border_color=COLOR_BORDER
+        )
+        card.grid(row=0, column=0)
+
+        ctk.CTkLabel(
+            card, text="⚠️", font=("Arial", 36)
+        ).pack(pady=(30, 10), padx=50)
+
+        ctk.CTkLabel(
+            card, text="Something went wrong", font=("Arial", 18, "bold"),
+            text_color=COLOR_TEXT_DARK
+        ).pack(padx=50)
+
+        ctk.CTkLabel(
+            card, text=message, font=("Arial", 13), text_color=COLOR_TEXT_MUTED,
+            wraplength=350, justify="center"
+        ).pack(pady=(8, 25), padx=50)
+
+        ctk.CTkButton(
+            card, text="Back to Login", width=200,
+            fg_color=COLOR_HERO_BG, hover_color="#152C69",
+            command=self._go_login
+        ).pack(pady=(0, 30))
+
+    def _go_login(self):
+        app = self.winfo_toplevel()
+        if hasattr(app, "show_login"):
+            app.show_login()
 
     # =========================
     # Helper: Achievement Badge
@@ -372,9 +435,9 @@ class DashboardPage(ctk.CTkFrame):
     def _make_interactive(self, root_widget, on_click, enter_cb, leave_cb):
         def bind_widget(widget):
             widget.configure(cursor="hand2")
-            widget.bind("<Button-1>", lambda e: on_click())
-            widget.bind("<Enter>", lambda e: enter_cb())
-            widget.bind("<Leave>", lambda e: leave_cb())
+            widget.bind("<Button-1>", lambda e=None: on_click())
+            widget.bind("<Enter>", lambda e=None: enter_cb())
+            widget.bind("<Leave>", lambda e=None: leave_cb())
             for child in widget.winfo_children():
                 bind_widget(child)
 

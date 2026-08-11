@@ -58,5 +58,75 @@
     "role": "milo",
     "text": "Hi there! You can see who received your payment by checking your transaction history in the SmartBank app. Alternatively, just ask me to \"check my recent transfers\" and I can look that up for you right away. Let me know how else I can help!",
     "time": "2026-08-10 14:12:28"
+  },
+  {
+    "role": "user",
+    "text": "hii milo give me bank balance",
+    "time": "2026-08-11 09:32:01"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! I can show your account balance on the Dashboard.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 09:32:01"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-11 09:32:04"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-11 09:32:04"
+  },
+  {
+    "role": "user",
+    "text": "hii i need to trnasfer money",
+    "time": "2026-08-11 09:32:23"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! Ask me about deposits, withdrawals, transfers, loans, or your balance.",
+    "time": "2026-08-11 09:32:23"
+  },
+  {
+    "role": "user",
+    "text": "transfers",
+    "time": "2026-08-11 09:32:31"
+  },
+  {
+    "role": "milo",
+    "text": "I can help you transfer money. Want me to open the Transfer page?\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 09:32:31"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-11 09:32:34"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-11 09:32:34"
+  },
+  {
+    "role": "user",
+    "text": "who much money did i spend",
+    "time": "2026-08-11 12:38:54"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! I can help you check your spending history. Just ask me to view your recent transactions or show your account summary for a specific time period. Let me know what dates you'd like to review, and I'll get that information for you!",
+    "time": "2026-08-11 12:38:59"
+  },
+  {
+    "role": "user",
+    "text": "how much did i spend",
+    "time": "2026-08-11 12:39:35"
+  },
+  {
+    "role": "milo",
+    "text": "Hey there! Over the last 30 days, you spent a total of \u20b950,200.00 across 8 transactions. Your largest spending category was Transfers, which accounted for \u20b937,000.00, alongside \u20b913,200.00 in withdrawals.",
+    "time": "2026-08-11 12:39:41"
   }
 ]

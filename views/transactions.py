@@ -1,9 +1,14 @@
 import customtkinter as ctk
+from tkinter import messagebox, filedialog
 import sqlite3
+import os
+import platform
+import subprocess
 import session
 
 from assets.ui_helpers import build_hero_header, PAGE_COLORS
 from assets.icon_loader import get_icon
+from statement_generator import generate_statement_pdf
 
 
 class TransactionsPage(ctk.CTkFrame):
@@ -26,6 +31,20 @@ class TransactionsPage(ctk.CTkFrame):
 
         wrapper = ctk.CTkFrame(self, fg_color="transparent")
         wrapper.pack(fill="both", expand=True, padx=40, pady=(0, 30))
+
+        # -------------------------
+        # Toolbar: Download Statement
+        # -------------------------
+        toolbar = ctk.CTkFrame(wrapper, fg_color="transparent")
+        toolbar.pack(fill="x", pady=(0, 10))
+
+        ctk.CTkButton(
+            toolbar,
+            text="📄  Download Statement (PDF)",
+            fg_color=PAGE_COLORS["transactions"],
+            hover_color="#1D4ED8",
+            command=self.download_statement
+        ).pack(side="right")
 
         card = ctk.CTkFrame(wrapper, corner_radius=15)
         card.pack(fill="both", expand=True)
@@ -54,6 +73,7 @@ class TransactionsPage(ctk.CTkFrame):
         self.transaction_box.tag_config("default", foreground="#374151")
         self.transaction_box.tag_config("muted", foreground="#6B7280")
 
+        self._cached_transactions = []
         self.load_transactions()
 
     def load_transactions(self):
@@ -76,6 +96,8 @@ class TransactionsPage(ctk.CTkFrame):
         transactions = cursor.fetchall()
 
         conn.close()
+
+        self._cached_transactions = transactions
 
         if not transactions:
 
@@ -125,3 +147,70 @@ class TransactionsPage(ctk.CTkFrame):
             )
 
         self.transaction_box.configure(state="disabled")
+
+    # =========================
+    # Download Statement (PDF)
+    # =========================
+    def download_statement(self):
+
+        if not self._cached_transactions:
+            messagebox.showinfo("No Data", "There are no transactions to include in a statement.")
+            return
+
+        conn = sqlite3.connect("bank.db")
+        cursor = conn.cursor()
+
+        user_id = session.current_user[0]
+
+        cursor.execute(
+            "SELECT name, username, balance FROM users WHERE id=?",
+            (user_id,)
+        )
+        row = cursor.fetchone()
+        conn.close()
+
+        if not row:
+            messagebox.showerror("Error", "Could not load account details.")
+            return
+
+        name, username, balance = row
+
+        default_filename = f"SmartBank_Statement_{username}.pdf"
+
+        save_path = filedialog.asksaveasfilename(
+            defaultextension=".pdf",
+            initialfile=default_filename,
+            filetypes=[("PDF Files", "*.pdf")],
+            title="Save Statement As"
+        )
+
+        if not save_path:
+            return  # user cancelled
+
+        try:
+            generate_statement_pdf(
+                user_name=name,
+                username=username,
+                account_id=user_id,
+                balance=balance,
+                transactions=self._cached_transactions,
+                output_path=save_path
+            )
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not generate statement:\n{e}")
+            return
+
+        messagebox.showinfo("Success", f"Statement saved to:\n{save_path}")
+
+        # Offer to open it immediately
+        if messagebox.askyesno("Open File", "Would you like to open the statement now?"):
+            try:
+                system = platform.system()
+                if system == "Windows":
+                    os.startfile(save_path)
+                elif system == "Darwin":
+                    subprocess.run(["open", save_path])
+                else:
+                    subprocess.run(["xdg-open", save_path])
+            except Exception:
+                pass

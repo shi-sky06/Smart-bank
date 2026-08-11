@@ -1,0 +1,12 @@
+[
+  {
+    "role": "user",
+    "text": "my deposits",
+    "time": "2026-08-11 12:52:29"
+  },
+  {
+    "role": "milo",
+    "text": "I can help you make a deposit. Want me to open the Deposit page?\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 12:52:29"
+  }
+]

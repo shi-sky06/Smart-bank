@@ -8,6 +8,7 @@ from views.transactions import TransactionsPage
 from views.loan import LoanPage
 from views.chatbot import ChatbotPage
 from views.wrapped import WrappedPage
+from views.international_transfer import InternationalTransferPage
 
 from assets.icon_loader import get_icon
 from assets.ui_helpers import PAGE_COLORS
@@ -130,6 +131,7 @@ class AppLayout(ctk.CTkFrame):
             ("deposit", "Deposit", "money_bag", self.show_deposit),
             ("withdraw", "Withdraw", "down_arrow", self.show_withdraw),
             ("transfer", "Transfer", "repeat", self.show_transfer),
+            ("international", "International Transfer", "repeat", self.show_international_transfer),
             ("transactions", "Transactions", "scroll", self.show_transactions),
             ("loan", "Loans", "credit_card", self.show_loans),
             ("chatbot", "AI Assistant", "robot", self.show_chatbot),
@@ -229,6 +231,7 @@ class AppLayout(ctk.CTkFrame):
             DepositPage: "deposit",
             WithdrawPage: "withdraw",
             TransferPage: "transfer",
+            InternationalTransferPage: "international",
             TransactionsPage: "transactions",
             LoanPage: "loan",
             ChatbotPage: "chatbot",
@@ -255,6 +258,9 @@ class AppLayout(ctk.CTkFrame):
 
     def show_transfer(self, add_to_history=True):
         self.load_page(TransferPage, add_to_history=add_to_history, nav_key="transfer")
+
+    def show_international_transfer(self, add_to_history=True):
+        self.load_page(InternationalTransferPage, add_to_history=add_to_history, nav_key="international")
 
     def show_transactions(self, add_to_history=True):
         self.load_page(TransactionsPage, add_to_history=add_to_history, nav_key="transactions")

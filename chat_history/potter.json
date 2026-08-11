@@ -8,5 +8,65 @@
     "role": "milo",
     "text": "Elephants are amazing animals, but they might struggle to tap a smartphone screen! I'm Milo, your SmartBank assistant, and I'm here to help you with your banking needs instead. If you ever need to make a transfer, deposit money, or apply for a loan, just ask me to do that for you!",
     "time": "2026-08-10 11:54:11"
+  },
+  {
+    "role": "user",
+    "text": "hii starts",
+    "time": "2026-08-11 15:55:43"
+  },
+  {
+    "role": "milo",
+    "text": "Hello! I'm Milo, your SmartBank AI Assistant. How can I help you today?",
+    "time": "2026-08-11 15:55:43"
+  },
+  {
+    "role": "user",
+    "text": "stars",
+    "time": "2026-08-11 15:55:57"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! Are you asking about SmartBank Stars, our customer rewards program? You can earn stars on everyday purchases and redeem them for great perks right in the app. If you'd like to check your balance, transfer funds, or apply for a loan, just ask me to do that for you!",
+    "time": "2026-08-11 15:56:02"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-11 15:56:11"
+  },
+  {
+    "role": "milo",
+    "text": "Great! How can I help you with your SmartBank account today? If you need to deposit, withdraw, transfer money, or check loan options, just ask me to do that for you. What would you like to take care of?",
+    "time": "2026-08-11 15:56:15"
+  },
+  {
+    "role": "user",
+    "text": "loan",
+    "time": "2026-08-11 15:56:24"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! SmartBank offers a variety of loan options to help meet your financial goals. If you would like to apply for a loan or check the details of an existing one, just ask me to start that action for you! How can I help you with your loan today?",
+    "time": "2026-08-11 15:56:28"
+  },
+  {
+    "role": "user",
+    "text": "educational loan",
+    "time": "2026-08-11 15:56:43"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! SmartBank offers educational loans to help cover your academic expenses. I can't provide specific financial advice, but I can handle the loan process for you directly. Just ask me to start an educational loan application whenever you're ready!",
+    "time": "2026-08-11 15:56:49"
+  },
+  {
+    "role": "user",
+    "text": "yes start'",
+    "time": "2026-08-11 15:57:02"
+  },
+  {
+    "role": "milo",
+    "text": "Welcome to SmartBank! I'm Milo, your AI assistant, ready to help you manage your money. If you need to check your balance, make a transfer, deposit funds, or apply for a loan, just ask me to do that for you! How can I assist you today?",
+    "time": "2026-08-11 15:57:07"
   }
 ]

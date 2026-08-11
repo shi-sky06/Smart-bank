@@ -1,0 +1,62 @@
+[
+  {
+    "role": "user",
+    "text": "my balance",
+    "time": "2026-08-11 16:39:33"
+  },
+  {
+    "role": "milo",
+    "text": "You can view your current balance from the Dashboard page.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 16:39:34"
+  },
+  {
+    "role": "user",
+    "text": "trnasfer",
+    "time": "2026-08-11 16:39:42"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! I can help you transfer money right away. Just ask me to make the transfer and let me know the amount and who you'd like to send it to. How much would you like to transfer today?",
+    "time": "2026-08-11 16:39:46"
+  },
+  {
+    "role": "user",
+    "text": "yup",
+    "time": "2026-08-11 16:39:50"
+  },
+  {
+    "role": "milo",
+    "text": "Great! How can I help you with your SmartBank account today? If you need to make a deposit, transfer money, or check on loans, just ask me to handle it for you. What would you like to do?",
+    "time": "2026-08-11 16:39:55"
+  },
+  {
+    "role": "user",
+    "text": "5000",
+    "time": "2026-08-11 16:39:59"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! It looks like you entered $5,000. If you would like to deposit, withdraw, or transfer this amount, or apply for a loan, just ask me to carry out that action for you. How can I help you with this today?",
+    "time": "2026-08-11 16:40:04"
+  },
+  {
+    "role": "user",
+    "text": "transfer",
+    "time": "2026-08-11 16:40:12"
+  },
+  {
+    "role": "milo",
+    "text": "Sure, let's set up that transfer. Opening the Transfer page.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-11 16:40:12"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-11 16:40:15"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-11 16:40:15"
+  }
+]
