@@ -1,0 +1,42 @@
+[
+  {
+    "role": "user",
+    "text": "hii recent transfers",
+    "time": "2026-08-12 12:44:15"
+  },
+  {
+    "role": "milo",
+    "text": "Sure, let's set up that transfer. Opening the Transfer page.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 12:44:16"
+  },
+  {
+    "role": "user",
+    "text": "my smallest transaction",
+    "time": "2026-08-12 12:44:28"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction was \u20b910,000.00 (Deposit) on 2026-08-12 05:54:28.",
+    "time": "2026-08-12 12:44:28"
+  },
+  {
+    "role": "user",
+    "text": "my largest transaction",
+    "time": "2026-08-12 12:44:37"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b910,000.00 (Deposit) on 2026-08-12 05:54:28.",
+    "time": "2026-08-12 12:44:37"
+  },
+  {
+    "role": "user",
+    "text": "my recent transaction",
+    "time": "2026-08-12 12:44:46"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! You can check your recent transactions by opening the **Accounts** tab and selecting **Transaction History** in the SmartBank app. There, you'll see a complete list of your latest purchases, deposits, and transfers. Let me know if you need help finding anything else!",
+    "time": "2026-08-12 12:44:50"
+  }
+]

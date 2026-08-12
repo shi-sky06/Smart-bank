@@ -1,0 +1,42 @@
+[
+  {
+    "role": "user",
+    "text": "deposite 50000",
+    "time": "2026-08-12 11:11:39"
+  },
+  {
+    "role": "milo",
+    "text": "I can help you make a deposit. Want me to open the Deposit page?\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 11:11:39"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-12 11:11:42"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-12 11:11:42"
+  },
+  {
+    "role": "user",
+    "text": "recent transactions",
+    "time": "2026-08-12 11:12:03"
+  },
+  {
+    "role": "milo",
+    "text": "Sure, let's review your transaction history.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 11:12:03"
+  },
+  {
+    "role": "user",
+    "text": "smallest transaction",
+    "time": "2026-08-12 11:12:12"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction was \u20b950,000.00 (Deposit) on 2026-08-12 05:41:49.",
+    "time": "2026-08-12 11:12:12"
+  }
+]

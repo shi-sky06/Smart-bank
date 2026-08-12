@@ -205,3 +205,4 @@ class SmartBank(ctk.CTk):
 if __name__ == "__main__":
     app = SmartBank()
     app.mainloop()
+    

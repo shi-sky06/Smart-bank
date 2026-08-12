@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from tkinter import messagebox
 import sqlite3
+import re
 import session
 
 from assets.ui_helpers import build_hero_header, PAGE_COLORS
@@ -39,7 +40,7 @@ class DepositPage(ctk.CTkFrame):
         container.grid(row=1, column=0, padx=40, pady=(10, 40), sticky="nsew")
 
         container.grid_columnconfigure(0, weight=1)
-        container.grid_rowconfigure((1, 2, 3), weight=1)
+        container.grid_rowconfigure((1, 2, 3, 4), weight=1)
 
         # Color strip
         ctk.CTkFrame(
@@ -71,12 +72,32 @@ class DepositPage(ctk.CTkFrame):
             height=45,
             placeholder_text="💵  Enter Deposit Amount"
         )
-        self.amount_entry.grid(row=2, column=0, pady=20)
+        self.amount_entry.grid(row=2, column=0, pady=(20, 5))
+
+        # Live-sanitize input as they type (digits + one decimal point only)
+        # instead of only catching bad input after they hit submit.
+        self.amount_entry.bind("<KeyRelease>", self._sanitize_amount_input)
+
+        # Enter key submits, same as clicking the button
+        self.amount_entry.bind("<Return>", lambda event: self.deposit_money())
+
+        # ==========================
+        # Inline status banner (replaces blocking success/validation
+        # dialogs for the common cases -- errors like "user not found"
+        # still use messagebox since those are truly exceptional)
+        # ==========================
+        self.status_label = ctk.CTkLabel(
+            container,
+            text="",
+            font=("Arial", 13),
+            text_color="#DC2626"
+        )
+        self.status_label.grid(row=3, column=0, pady=(0, 5))
 
         # ==========================
         # Deposit Button
         # ==========================
-        deposit_btn = ctk.CTkButton(
+        self.deposit_btn = ctk.CTkButton(
             container,
             text="Deposit",
             width=220,
@@ -85,29 +106,79 @@ class DepositPage(ctk.CTkFrame):
             hover_color="#15803D",
             command=self.deposit_money
         )
-        deposit_btn.grid(row=3, column=0, pady=(0, 40))
+        self.deposit_btn.grid(row=4, column=0, pady=(0, 40))
 
+        self._status_after_id = None
+
+    # -----------------------------------
+    # Live input sanitization
+    # -----------------------------------
+    def _sanitize_amount_input(self, event=None):
+        raw = self.amount_entry.get()
+
+        # Keep digits and at most one decimal point
+        cleaned = re.sub(r"[^0-9.]", "", raw)
+        parts = cleaned.split(".")
+        if len(parts) > 2:
+            cleaned = parts[0] + "." + "".join(parts[1:])
+
+        if cleaned != raw:
+            cursor_pos = self.amount_entry.index("insert")
+            self.amount_entry.delete(0, "end")
+            self.amount_entry.insert(0, cleaned)
+            # Best-effort cursor restore
+            self.amount_entry.icursor(min(cursor_pos, len(cleaned)))
+
+        # Clear any stale error the moment they start correcting it
+        if cleaned:
+            self._clear_status()
+
+    # -----------------------------------
+    # Inline status helpers
+    # -----------------------------------
+    def _show_status(self, message, kind="error"):
+        color = "#16A34A" if kind == "success" else "#DC2626"
+        self.status_label.configure(text=message, text_color=color)
+
+        if self._status_after_id:
+            self.after_cancel(self._status_after_id)
+
+        # Auto-clear after a few seconds so it doesn't linger stale
+        self._status_after_id = self.after(4000, self._clear_status)
+
+    def _clear_status(self):
+        self.status_label.configure(text="")
+        self._status_after_id = None
+
+    # -----------------------------------
+    # Deposit action
+    # -----------------------------------
     def deposit_money(self):
 
-        amount = self.amount_entry.get().strip()
+        amount_text = self.amount_entry.get().strip()
 
-        if amount == "":
-            messagebox.showerror(
-                "Error",
-                "Enter an amount."
-            )
+        if amount_text == "":
+            self._show_status("Enter an amount.")
             return
 
         try:
-            amount = float(amount)
+            amount = round(float(amount_text), 2)
+        except ValueError:
+            self._show_status("Please enter a valid amount.")
+            return
 
-            if amount <= 0:
-                messagebox.showerror(
-                    "Error",
-                    "Amount must be greater than zero."
-                )
-                return
+        if amount <= 0:
+            self._show_status("Amount must be greater than zero.")
+            return
 
+        # Instant feedback the moment the click registers, even though
+        # the local DB write itself is fast -- the button should never
+        # feel like a dead click, and this also guards against a
+        # double-submit from a rapid double-click.
+        self.deposit_btn.configure(state="disabled", text="Depositing...")
+        self.update_idletasks()
+
+        try:
             conn = sqlite3.connect("bank.db")
             cursor = conn.cursor()
 
@@ -122,14 +193,11 @@ class DepositPage(ctk.CTkFrame):
 
             if user is None:
                 conn.close()
-                messagebox.showerror(
-                    "Error",
-                    "User not found."
-                )
+                messagebox.showerror("Error", "User not found.")
                 return
 
             current_balance = user[0]
-            new_balance = current_balance + amount
+            new_balance = round(current_balance + amount, 2)
 
             cursor.execute(
                 """
@@ -165,18 +233,19 @@ class DepositPage(ctk.CTkFrame):
                 new_balance
             )
 
-            messagebox.showinfo(
-                "Success",
-                f"₹{amount:,.2f} deposited successfully!"
+            self._show_status(
+                f"₹{amount:,.2f} deposited successfully! New balance: ₹{new_balance:,.2f}",
+                kind="success"
             )
 
             self.amount_entry.delete(0, "end")
 
-            # Refresh Dashboard
-            self.master.master.show_dashboard()
+            # Give the person a moment to actually read the confirmation
+            # before whisking them back to the Dashboard.
+            self.after(900, self._go_to_dashboard)
 
-        except ValueError:
-            messagebox.showerror(
-                "Error",
-                "Please enter a valid amount."
-            )
+        finally:
+            self.deposit_btn.configure(state="normal", text="Deposit")
+
+    def _go_to_dashboard(self):
+        self.master.master.show_dashboard()

@@ -68,5 +68,25 @@
     "role": "milo",
     "text": "Welcome to SmartBank! I'm Milo, your AI assistant, ready to help you manage your money. If you need to check your balance, make a transfer, deposit funds, or apply for a loan, just ask me to do that for you! How can I assist you today?",
     "time": "2026-08-11 15:57:07"
+  },
+  {
+    "role": "user",
+    "text": "waffles",
+    "time": "2026-08-12 10:30:37"
+  },
+  {
+    "role": "milo",
+    "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans\n\u2022 Transactions\n\u2022 Spending summary\n\u2022 Smallest transaction\n\u2022 Largest transaction\n\u2022 Transactions on a specific date\n\u2022 Transactions with a specific person\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"what is my largest transaction\".",
+    "time": "2026-08-12 10:30:38"
+  },
+  {
+    "role": "user",
+    "text": "get my largest transaction",
+    "time": "2026-08-12 10:30:54"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b9483,980.15 (International Transfer \u2192 sky (United States)) on 2026-08-11 10:27:53.",
+    "time": "2026-08-12 10:30:54"
   }
 ]

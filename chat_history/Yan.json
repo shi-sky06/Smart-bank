@@ -1,0 +1,82 @@
+[
+  {
+    "role": "user",
+    "text": "hii get my smallest transactions",
+    "time": "2026-08-12 10:14:03"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction was \u20b95,000.00 (Deposit) on 2026-08-07 11:06:42.",
+    "time": "2026-08-12 10:14:04"
+  },
+  {
+    "role": "user",
+    "text": "fetch my largest transactions",
+    "time": "2026-08-12 10:14:15"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b971,050.00 (International Transfer \u2192 Jolly James (Germany)) on 2026-08-11 09:16:54.",
+    "time": "2026-08-12 10:14:15"
+  },
+  {
+    "role": "user",
+    "text": "my transactions on 08 aug 2026",
+    "time": "2026-08-12 10:14:38"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found on 2026-08-08.",
+    "time": "2026-08-12 10:14:38"
+  },
+  {
+    "role": "user",
+    "text": "10 aug 26",
+    "time": "2026-08-12 10:14:48"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! It looks like you shared a date, but I'm not quite sure what you'd like to do with it. If you're trying to set up a payment, deposit, or transfer for that day, you can easily manage that on the **Transfers & Payments** page in the SmartBank app. Please let me know if you have any other questions!",
+    "time": "2026-08-12 10:14:53"
+  },
+  {
+    "role": "user",
+    "text": "07 aug 26",
+    "time": "2026-08-12 10:15:34"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! It looks like you've entered a specific date\u2014August 7, 2026. If you are looking to schedule a payment or transfer for that day, please head over to the **Transfers** page in your SmartBank app. How else can I help you today?",
+    "time": "2026-08-12 10:15:38"
+  },
+  {
+    "role": "user",
+    "text": "fetch my  transactions on 07 aug 2026",
+    "time": "2026-08-12 10:16:06"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions on 2026-08-07\n\n\u2022 Transfer \u2192 sky | \u20b95,000.00 | 2026-08-07 11:06:59\n\u2022 Deposit | \u20b95,000.00 | 2026-08-07 11:06:42\n",
+    "time": "2026-08-12 10:16:06"
+  },
+  {
+    "role": "user",
+    "text": "fech my tanscation with sky",
+    "time": "2026-08-12 10:16:23"
+  },
+  {
+    "role": "milo",
+    "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans\n\u2022 Transactions\n\u2022 Spending summary\n\u2022 Smallest transaction\n\u2022 Largest transaction\n\u2022 Transactions on a specific date\n\u2022 Transactions with a specific person\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"what is my largest transaction\".",
+    "time": "2026-08-12 10:16:23"
+  },
+  {
+    "role": "user",
+    "text": "fetch my transactions with Shifa",
+    "time": "2026-08-12 10:17:07"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Shifa\n\n\u2022 Transfer \u2192 Shifa | \u20b950,000.00 | 2026-08-12 04:46:53\n",
+    "time": "2026-08-12 10:17:07"
+  }
+]

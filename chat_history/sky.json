@@ -128,5 +128,125 @@
     "role": "milo",
     "text": "Hey there! Over the last 30 days, you spent a total of \u20b950,200.00 across 8 transactions. Your largest spending category was Transfers, which accounted for \u20b937,000.00, alongside \u20b913,200.00 in withdrawals.",
     "time": "2026-08-11 12:39:41"
+  },
+  {
+    "role": "user",
+    "text": "hii fetch my transctions with potter",
+    "time": "2026-08-12 14:06:37"
+  },
+  {
+    "role": "milo",
+    "text": "Hello! I'm Milo, your SmartBank AI Assistant. How can I help you today?",
+    "time": "2026-08-12 14:06:37"
+  },
+  {
+    "role": "user",
+    "text": "transaction with potter",
+    "time": "2026-08-12 14:06:53"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Potter\n\n\u2022 Transfer \u2192 potter | \u20b92,000.00 | 2026-08-07 08:59:42\n\u2022 Transfer \u2192 potter | \u20b920,000.00 | 2026-08-05 10:01:18\n",
+    "time": "2026-08-12 14:06:53"
+  },
+  {
+    "role": "user",
+    "text": "transaction with Yan",
+    "time": "2026-08-12 14:07:30"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found with Yan.",
+    "time": "2026-08-12 14:07:30"
+  },
+  {
+    "role": "user",
+    "text": "transfer amount",
+    "time": "2026-08-12 14:16:32"
+  },
+  {
+    "role": "milo",
+    "text": "Let's get your transfer done! Go to Transfer \u2192 enter the recipient's username \u2192 enter the amount \u2192 confirm the transaction. Your balance will be updated automatically.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 14:16:32"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-12 14:16:38"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-12 14:16:38"
+  },
+  {
+    "role": "user",
+    "text": "all transactions with Shifa",
+    "time": "2026-08-12 14:17:39"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Shifa\n\n\u2022 Transfer \u2192 Shifa | \u20b950,000.00 | 2026-08-12 08:47:16\n\u2022 International Transfer \u2192 Shifa (Australia) | \u20b945,675.00 | 2026-08-12 07:10:16\n",
+    "time": "2026-08-12 14:17:39"
+  },
+  {
+    "role": "user",
+    "text": "show all transactions with potter",
+    "time": "2026-08-12 14:17:55"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Potter\n\n\u2022 Transfer \u2192 potter | \u20b92,000.00 | 2026-08-07 08:59:42\n\u2022 Transfer \u2192 potter | \u20b920,000.00 | 2026-08-05 10:01:18\n",
+    "time": "2026-08-12 14:17:55"
+  },
+  {
+    "role": "user",
+    "text": "fetch all transactions with alex and yan",
+    "time": "2026-08-12 14:18:12"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found with Alex And.",
+    "time": "2026-08-12 14:18:12"
+  },
+  {
+    "role": "user",
+    "text": "fetch all transactions with alex",
+    "time": "2026-08-12 14:18:26"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Alex\n\n\u2022 Transfer \u2192 alex | \u20b915,000.00 | 2026-08-04 10:12:33\n",
+    "time": "2026-08-12 14:18:26"
+  },
+  {
+    "role": "user",
+    "text": "fetch all transactions with yan",
+    "time": "2026-08-12 14:18:31"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found with Yan.",
+    "time": "2026-08-12 14:18:31"
+  },
+  {
+    "role": "user",
+    "text": "show all my deposit",
+    "time": "2026-08-12 14:18:50"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To make a deposit, open the Deposit page, enter the amount you want to add, and click Confirm Deposit.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 14:18:50"
+  },
+  {
+    "role": "user",
+    "text": "show all my deposit transactions",
+    "time": "2026-08-12 14:19:12"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To view your transactions, open the Transactions page to see your recent deposits, withdrawals, and transfers.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 14:19:12"
   }
 ]

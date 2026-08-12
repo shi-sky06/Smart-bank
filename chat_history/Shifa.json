@@ -178,5 +178,145 @@
     "role": "milo",
     "text": "Hi there! I can help you find your lowest transaction from the past month. Just ask me to \"check my transaction history,\" and I'll scan your recent spending for you. You can also view and filter all your past transactions anytime in the \"Activity\" tab of the SmartBank app!",
     "time": "2026-08-11 18:37:59"
+  },
+  {
+    "role": "user",
+    "text": "get me tranasctions with name sky",
+    "time": "2026-08-12 09:56:33"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! I can help you find those transactions. \n\nYou can search your full history by navigating to the **Transactions** page in the SmartBank app. Simply type \"sky\" into the search bar at the top of that page to filter your results!",
+    "time": "2026-08-12 09:56:37"
+  },
+  {
+    "role": "user",
+    "text": "highest transaction",
+    "time": "2026-08-12 09:56:59"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b9483,980.15 (International Transfer \u2192 sky (United States)) on 2026-08-11 12:48:45.",
+    "time": "2026-08-12 09:56:59"
+  },
+  {
+    "role": "user",
+    "text": "transaction made on 10 aug 2026",
+    "time": "2026-08-12 09:57:26"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! I can help you check the details of that transaction. Please head over to the **Transaction History** page in the SmartBank app to view your account activity. From there, you can easily filter by date to see all transactions made on August 10, 2026.",
+    "time": "2026-08-12 09:57:31"
+  },
+  {
+    "role": "user",
+    "text": "\"get me transactions with name sky",
+    "time": "2026-08-12 10:07:17"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udc64 Transactions with Sky\n\n\u2022 International Transfer \u2192 sky (United States) | \u20b9483,980.15 | 2026-08-11 12:48:45\n\u2022 International Transfer \u2192 sky (Germany) | \u20b922,356.08 | 2026-08-11 11:08:52\n\u2022 Transfer \u2192 sky | \u20b92,000.00 | 2026-08-11 11:07:23\n",
+    "time": "2026-08-12 10:07:17"
+  },
+  {
+    "role": "user",
+    "text": "10 aug 26 transaction",
+    "time": "2026-08-12 10:07:33"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found on 2026-08-10.",
+    "time": "2026-08-12 10:07:33"
+  },
+  {
+    "role": "user",
+    "text": "11 aug",
+    "time": "2026-08-12 10:07:40"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! It looks like you mentioned August 11th. Are you looking for transaction history, scheduled payments, or account statements from that date? Let me know what you need, and I'll gladly guide you to the right SmartBank page!",
+    "time": "2026-08-12 10:07:44"
+  },
+  {
+    "role": "user",
+    "text": "11 aug 26",
+    "time": "2026-08-12 10:07:54"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! It looks like you entered the date August 11, 2026. Are you looking to check transaction history or scheduled activity for that date? You can easily view all your past and upcoming account details on the SmartBank Accounts page.",
+    "time": "2026-08-12 10:07:58"
+  },
+  {
+    "role": "user",
+    "text": "get me transactions with name sky on 11 aug 2026",
+    "time": "2026-08-12 10:08:22"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcc5 Transactions on 2026-08-11\n\n\u2022 International Transfer \u2192 sky (United States) | \u20b9483,980.15 | 2026-08-11 12:48:45\n\u2022 Withdraw | \u20b950,000.00 | 2026-08-11 11:15:15\n\u2022 Deposit | \u20b9100,000.00 | 2026-08-11 11:11:03\n\u2022 Transfer \u2192 Rohan | \u20b9300.00 | 2026-08-11 11:10:26\n\u2022 International Transfer \u2192 sky (Germany) | \u20b922,356.08 | 2026-08-11 11:08:52\n\u2022 Transfer \u2192 Rohan | \u20b9500.00 | 2026-08-11 11:08:25\n\u2022 Transfer \u2192 Arjun12 | \u20b9300.00 | 2026-08-11 11:08:12\n\u2022 Transfer \u2192 alex | \u20b92,000.00 | 2026-08-11 11:07:49\n\u2022 Transfer \u2192 Yan | \u20b93,000.00 | 2026-08-11 11:07:35\n\u2022 Transfer \u2192 sky | \u20b92,000.00 | 2026-08-11 11:07:23\n",
+    "time": "2026-08-12 10:08:22"
+  },
+  {
+    "role": "user",
+    "text": "get me transaction with name fathima",
+    "time": "2026-08-12 10:08:38"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found involving 'Fathima'.",
+    "time": "2026-08-12 10:08:38"
+  },
+  {
+    "role": "user",
+    "text": "get my smallest transaction",
+    "time": "2026-08-12 10:08:49"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction was \u20b9300.00 (Transfer \u2192 Arjun12) on 2026-08-11 11:08:12.",
+    "time": "2026-08-12 10:08:49"
+  },
+  {
+    "role": "user",
+    "text": "largest transaction with zoya",
+    "time": "2026-08-12 10:09:01"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b9483,980.15 (International Transfer \u2192 sky (United States)) on 2026-08-11 12:48:45.",
+    "time": "2026-08-12 10:09:01"
+  },
+  {
+    "role": "user",
+    "text": "deposit",
+    "time": "2026-08-12 12:50:13"
+  },
+  {
+    "role": "milo",
+    "text": "Let's get your deposit done! Go to Deposit \u2192 enter the amount \u2192 confirm the transaction. Your account balance will be updated automatically.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 12:50:13"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-12 12:50:19"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-12 12:50:19"
+  },
+  {
+    "role": "user",
+    "text": "transaction on 12 aug 2026",
+    "time": "2026-08-12 12:50:39"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found on 2026-08-12.",
+    "time": "2026-08-12 12:50:39"
   }
 ]

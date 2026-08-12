@@ -1,0 +1,272 @@
+[
+  {
+    "role": "user",
+    "text": "hii show my recent transactions",
+    "time": "2026-08-12 14:45:38"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To view your transactions, open the Transactions page to see your recent deposits, withdrawals, and transfers.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 14:45:38"
+  },
+  {
+    "role": "user",
+    "text": "fetch my largest fund transfer",
+    "time": "2026-08-12 14:45:54"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To transfer money, open the Transfer page, enter the recipient's username, enter the amount, and click Confirm Transfer.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 14:45:54"
+  },
+  {
+    "role": "user",
+    "text": "largest transactions",
+    "time": "2026-08-12 14:46:05"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b910,000.00 (Deposit) on 2026-08-12 08:58:29.",
+    "time": "2026-08-12 14:46:05"
+  },
+  {
+    "role": "user",
+    "text": "smallest transaction",
+    "time": "2026-08-12 15:02:11"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction was \u20b9425.81 (International Transfer \u2192 sky (Germany)) on 2026-08-12 09:02:43.",
+    "time": "2026-08-12 15:02:11"
+  },
+  {
+    "role": "user",
+    "text": "transaction with name shifa",
+    "time": "2026-08-12 15:02:27"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Shifa\n\n\u2022 Transfer \u2192 Shifa | \u20b93,000.00 | 2026-08-12 09:00:20\n",
+    "time": "2026-08-12 15:02:27"
+  },
+  {
+    "role": "user",
+    "text": "transaction with name farha",
+    "time": "2026-08-12 15:02:43"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found with Farha.",
+    "time": "2026-08-12 15:02:43"
+  },
+  {
+    "role": "user",
+    "text": "transaction with name amaira",
+    "time": "2026-08-12 15:02:52"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found with Amaira.",
+    "time": "2026-08-12 15:02:52"
+  },
+  {
+    "role": "user",
+    "text": "fetch my balance",
+    "time": "2026-08-12 15:03:08"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! I can show your account balance on the Dashboard.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 15:03:08"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-12 15:03:10"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-12 15:03:10"
+  },
+  {
+    "role": "user",
+    "text": "transaction on 12-08-26",
+    "time": "2026-08-12 15:03:35"
+  },
+  {
+    "role": "milo",
+    "text": "I can look up transactions for a specific date \u2014 try something like \"transactions on 2024-05-01\" or \"transactions on 10 aug 2026\".",
+    "time": "2026-08-12 15:03:35"
+  },
+  {
+    "role": "user",
+    "text": "yes please",
+    "time": "2026-08-12 15:03:45"
+  },
+  {
+    "role": "milo",
+    "text": "Great, I'm ready to help! How can I assist you with your SmartBank app today? For quick actions like deposits, transfers, withdrawals, or loan applications, you can head directly to the **Services** tab in the main menu. Let me know what you would like to do!",
+    "time": "2026-08-12 15:03:52"
+  },
+  {
+    "role": "user",
+    "text": "fetch transaction on 12-08-26",
+    "time": "2026-08-12 15:04:05"
+  },
+  {
+    "role": "milo",
+    "text": "I can look up transactions for a specific date \u2014 try something like \"transactions on 2024-05-01\" or \"transactions on 10 aug 2026\".",
+    "time": "2026-08-12 15:04:05"
+  },
+  {
+    "role": "user",
+    "text": "transaction on 12 aug 26",
+    "time": "2026-08-12 15:04:20"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions on 2026-08-12\n\n\u2022 International Transfer \u2192 sky (Germany) | \u20b9425.81 | 2026-08-12 09:02:43\n\u2022 Transfer \u2192 potter | \u20b96,000.00 | 2026-08-12 09:01:23\n\u2022 Transfer \u2192 alex | \u20b9500.00 | 2026-08-12 09:01:01\n\u2022 Transfer \u2192 sky | \u20b92,000.00 | 2026-08-12 09:00:46\n\u2022 Transfer \u2192 Shifa | \u20b93,000.00 | 2026-08-12 09:00:20\n\u2022 Withdraw | \u20b95,000.00 | 2026-08-12 09:00:07\n\u2022 Deposit | \u20b910,000.00 | 2026-08-12 08:58:29\n",
+    "time": "2026-08-12 15:04:20"
+  },
+  {
+    "role": "user",
+    "text": "clear chat",
+    "time": "2026-08-12 15:04:30"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! To clear our conversation history, tap the trash icon at the top right of your chat screen. This will instantly reset our message thread so you can start fresh. Let me know if you need help with anything else!",
+    "time": "2026-08-12 15:04:35"
+  },
+  {
+    "role": "user",
+    "text": "hii",
+    "time": "2026-08-12 15:21:07"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! Ask me about deposits, withdrawals, transfers, loans, or your balance.",
+    "time": "2026-08-12 15:21:07"
+  },
+  {
+    "role": "user",
+    "text": "check my balance",
+    "time": "2026-08-12 15:21:28"
+  },
+  {
+    "role": "milo",
+    "text": "You can view your current balance from the Dashboard page.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 15:21:28"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-12 15:21:32"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-12 15:21:32"
+  },
+  {
+    "role": "user",
+    "text": "withdraw",
+    "time": "2026-08-12 15:21:48"
+  },
+  {
+    "role": "milo",
+    "text": "Let's get your withdrawal done! Go to Withdraw \u2192 enter the amount \u2192 confirm the transaction. Your account balance will be updated automatically.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 15:21:48"
+  },
+  {
+    "role": "user",
+    "text": "biggest payment",
+    "time": "2026-08-12 15:22:07"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b950,000.00 (Deposit) on 2026-08-12 09:45:11.",
+    "time": "2026-08-12 15:22:07"
+  },
+  {
+    "role": "user",
+    "text": "transactions on 2024-05-01",
+    "time": "2026-08-12 15:22:19"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found on 2024-05-01.",
+    "time": "2026-08-12 15:22:19"
+  },
+  {
+    "role": "user",
+    "text": "transactions with sky",
+    "time": "2026-08-12 15:22:35"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Sky\n\n\u2022 International Transfer \u2192 sky (Germany) | \u20b9425.81 | 2026-08-12 09:02:43\n\u2022 Transfer \u2192 sky | \u20b92,000.00 | 2026-08-12 09:00:46\n",
+    "time": "2026-08-12 15:22:35"
+  },
+  {
+    "role": "user",
+    "text": "smallest transaction on 10 aug 2026",
+    "time": "2026-08-12 15:22:50"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found on 2026-08-10.",
+    "time": "2026-08-12 15:22:50"
+  },
+  {
+    "role": "user",
+    "text": "what's my loan status",
+    "time": "2026-08-12 15:23:02"
+  },
+  {
+    "role": "milo",
+    "text": "You haven't applied for any loans yet. Want me to open the Loans page?",
+    "time": "2026-08-12 15:23:02"
+  },
+  {
+    "role": "user",
+    "text": "how much did I spend this month",
+    "time": "2026-08-12 15:23:16"
+  },
+  {
+    "role": "milo",
+    "text": "Hey there! Over the last 30 days, you spent a total of \u20b923,925.81 across 8 transactions. Your biggest spending category was Transfers, which totaled \u20b916,500.00.",
+    "time": "2026-08-12 15:23:23"
+  },
+  {
+    "role": "user",
+    "text": "tell me a joke",
+    "time": "2026-08-12 15:23:35"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-12 15:23:35"
+  },
+  {
+    "role": "user",
+    "text": "tell me a joke",
+    "time": "2026-08-12 15:23:44"
+  },
+  {
+    "role": "milo",
+    "text": "Why do banks love nature so much? Because they have so many branches! \n\nI hope that brought a quick smile to your day. Feel free to ask if you need help navigating any features in your SmartBank app!",
+    "time": "2026-08-12 15:23:49"
+  },
+  {
+    "role": "user",
+    "text": "asdkfj",
+    "time": "2026-08-12 15:24:10"
+  },
+  {
+    "role": "milo",
+    "text": "Hi there! It looks like that message might have been a typo. I'm Milo, your SmartBank assistant, and I'm here to help you navigate your account and banking services. How can I assist you today?",
+    "time": "2026-08-12 15:24:14"
+  }
+]
