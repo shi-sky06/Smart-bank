@@ -268,5 +268,35 @@
     "role": "milo",
     "text": "Hi there! It looks like that message might have been a typo. I'm Milo, your SmartBank assistant, and I'm here to help you navigate your account and banking services. How can I assist you today?",
     "time": "2026-08-12 15:24:14"
+  },
+  {
+    "role": "user",
+    "text": "I want to withdraw money",
+    "time": "2026-08-12 16:02:55"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To withdraw money, open the Withdraw page, enter the amount you want to withdraw, and click Confirm Withdrawal.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 16:02:55"
+  },
+  {
+    "role": "user",
+    "text": "check my balance",
+    "time": "2026-08-12 16:03:00"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! I can show your account balance on the Dashboard.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-12 16:03:00"
+  },
+  {
+    "role": "user",
+    "text": "what is my largest transaction",
+    "time": "2026-08-12 16:03:18"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b9400,000.00 (Deposit) on 2026-08-12 10:16:01.",
+    "time": "2026-08-12 16:03:18"
   }
 ]
