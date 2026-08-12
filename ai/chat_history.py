@@ -77,3 +77,4 @@ def clear_history(username: str):
     path = _get_path(username)
     if os.path.exists(path):
         os.remove(path)
+        
