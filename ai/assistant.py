@@ -2,7 +2,7 @@ import re
 import random
 import os
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import session
 from ai import chat_history
@@ -12,7 +12,8 @@ from ai.banking_ai import (
     get_smallest_transaction,
     get_largest_transaction,
     get_extreme_transaction_filtered,
-    get_transactions_filtered
+    get_transactions_filtered,
+    get_transaction_aggregate,
 )
 
 
@@ -24,10 +25,18 @@ _gemini_ready = False
 _gemini_client = None
 
 try:
-    from dotenv import load_dotenv
-    load_dotenv()
+    from dotenv import load_dotenv, find_dotenv
+    # find_dotenv() walks upward from this file's own location, not the
+    # process's current working directory -- so this still finds .env
+    # even if the app is launched from a shortcut, IDE, or another folder.
+    _dotenv_path = find_dotenv(filename=".env", usecwd=False)
+    if not _dotenv_path:
+        # Fallback: look next to this file / project root explicitly.
+        _dotenv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".env")
+    load_dotenv(_dotenv_path)
+    print(f"[Milo startup] .env loaded from: {_dotenv_path}")
 except ImportError:
-    pass
+    print("[Milo startup] python-dotenv not installed; skipping .env load")
 
 try:
     from google import genai
@@ -37,9 +46,12 @@ try:
     if _api_key:
         _gemini_client = genai.Client(api_key=_api_key)
         _gemini_ready = True
+        print(f"[Milo startup] Gemini ready (key found, length={len(_api_key)})")
+    else:
+        print("[Milo startup] GEMINI_API_KEY not found in environment -- Gemini disabled")
 
 except ImportError:
-    pass
+    print("[Milo startup] google-genai not installed -- Gemini disabled")
 
 
 # ============================================================
@@ -234,19 +246,19 @@ INTENTS = [
             "• Withdrawals\n"
             "• Transfers\n"
             "• Loans\n"
-            "• Transactions\n"
+            "• Transactions (by type, date, date range, person, or amount)\n"
             "• Checking your balance\n"
             "• Spending summary\n"
-            "• Smallest transaction\n"
-            "• Largest transaction\n"
-            "• Transactions on a specific date (e.g. \"transactions on 2024-05-01\")\n"
-            "• Transactions with a specific person (e.g. \"transactions with Priya\")\n"
+            "• Smallest / largest transaction\n"
+            "• Totals and counts (e.g. \"how many withdrawals this month\")\n"
             "• General banking questions\n\n"
             "What would you like to do?"
         ],
         "action": None,
     },
 ]
+
+_INTENTS_BY_NAME = {intent["name"]: intent for intent in INTENTS}
 
 
 # ============================================================
@@ -256,6 +268,29 @@ INTENTS = [
 LOAN_STATUS_PATTERNS = [
     "loan status", "my loan", "status of my loan",
     "loan application status", "check my loan"
+]
+
+LOAN_LIST_PATTERNS = [
+    "all my loans", "list my loans", "my loans", "loan history", "all loans"
+]
+
+LOAN_DUE_PATTERNS = [
+    "next emi due", "emi due date", "when is my next payment",
+    "when is my emi due", "next payment due date", "next installment due",
+    "when is my next emi"
+]
+
+LOAN_OWE_PATTERNS = [
+    "how much do i owe", "how much i owe", "total i owe",
+    "outstanding amount", "loan balance", "amount remaining",
+    "how much left to pay", "total payable", "remaining balance on my loan",
+    "how much do i still owe"
+]
+
+LOAN_EMI_PATTERNS = [
+    "my emi", "monthly emi", "loan emi", "what is my emi",
+    "how much is my emi", "monthly payment", "installment amount",
+    "my monthly installment"
 ]
 
 SPENDING_PATTERNS = [
@@ -309,10 +344,54 @@ MONTH_NAMES = {
 _MONTH_ALTERNATION = "|".join(sorted(MONTH_NAMES.keys(), key=len, reverse=True))
 TRANSACTION_WORD_RE = re.compile(r"\btransactions?\b")
 
+# Maps a keyword found in the message to the LIKE search term(s) used
+# against the transaction_type column. Checked in order, so more
+# specific phrases (e.g. "international transfer") are matched before
+# their broader substrings (e.g. "transfer").
+TYPE_KEYWORDS = [
+    ("international transfer", ["International Transfer"]),
+    ("intl transfer", ["International Transfer"]),
+    ("transfer", ["Transfer"]),  # LIKE match also catches "International Transfer"
+    ("withdrawal", ["Withdraw"]),
+    ("withdraw", ["Withdraw"]),
+    ("deposit", ["Deposit"]),
+]
+
+# Words that imply "extreme value" but aren't in the stricter phrase
+# lists above (SMALLEST_TRANSACTION_PATTERNS / LARGEST_TRANSACTION_PATTERNS).
+# Only used as a fallback, and only when a transaction-type keyword is
+# also present -- e.g. "largest withdrawal" -- so a bare "highest" in an
+# unrelated question (like "what's the highest interest rate") never
+# gets misrouted into a transaction lookup.
+EXTREMUM_WORDS_DESC = {"largest", "biggest", "highest", "maximum", "max"}
+EXTREMUM_WORDS_ASC = {"smallest", "lowest", "least", "minimum", "min"}
+
+# Words that signal "I want to look something up" rather than "I want
+# to perform this action". Needed so a bare type keyword -- e.g.
+# "withdraw" in "I want to withdraw money" -- doesn't get swallowed by
+# the transaction-lookup handler and hijacked away from the normal
+# "here's how to withdraw" action intent. A type keyword only counts as
+# a lookup request on its own if paired with one of these.
+QUERY_VERBS = {"show", "list", "view", "see", "what", "which", "how many"}
+
+COUNT_PATTERNS = ["how many", "number of", "count of"]
+SUM_PATTERNS = ["total", "how much did i", "how much have i", "sum of"]
+
+RELATIVE_RANGE_PHRASES = ["today", "yesterday", "this week", "last week", "this month", "last month"]
+
+# Recognizes an amount like "10000", "10,000", "₹10,000.50", or "10k".
+AMOUNT_RE = r"₹?\s*([\d,]+(?:\.\d+)?)\s*(k|thousand)?"
+
 YES_WORDS = {"yes", "yeah", "yep", "sure", "ok", "okay", "please", "go ahead"}
 NO_WORDS = {"no", "nope", "nah", "not now", "cancel"}
 
-_last_action = {"pending": None}
+# Pending confirmation / clarification state, keyed per-user (falls back
+# to a shared "__anon__" bucket for logged-out sessions). Previously
+# these were single global dicts shared by every user of the process,
+# so one user's reply could trigger or complete a different user's
+# pending action/question.
+_last_action = {}
+_pending_query = {}
 
 
 # ============================================================
@@ -346,6 +425,14 @@ def _get_current_username():
         return None
 
 
+def _pending_key(username):
+    """Key used to isolate pending-action / pending-question state per
+    user, so logged-in users never see or trigger each other's pending
+    items. Logged-out sessions share one bucket, which is fine since
+    only one anonymous session is expected at a time."""
+    return username or "__anon__"
+
+
 def _match_intent(message: str):
     text = _normalize(message)
     best_intent, best_score = None, 0
@@ -364,35 +451,136 @@ def _normalize_year(year_str):
     return year + 2000 if year < 100 else year
 
 
-def _extract_date(text: str):
-    """
-    Pulls a date out of free text and normalizes it to YYYY-MM-DD.
-    Supports ISO (2024-05-01), slash DD/MM/YYYY, and written dates like
-    "10 aug 26" / "10-aug-26" / "aug 10 2026" (full or abbreviated month
-    names, space/dash separators, optional ordinal suffix, 2- or 4-digit
-    year). Returns None if nothing recognizable is found.
-    """
-    day_pattern = r"(\d{1,2})(?:st|nd|rd|th)?"
+_DATE_PATTERNS = None
 
-    patterns = [
-        (r"\b(\d{4})-(\d{1,2})-(\d{1,2})\b", lambda m: (int(m[1]), int(m[2]), int(m[3]))),
-        (r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b", lambda m: (int(m[3]), int(m[2]), int(m[1]))),
-        (r"\b" + day_pattern + r"[\s\-]+(" + _MONTH_ALTERNATION + r")\.?[\s\-]*,?\s*(\d{2,4})?\b",
-         lambda m: (_normalize_year(m[3]), MONTH_NAMES[m[2]], int(m[1]))),
-        (r"\b(" + _MONTH_ALTERNATION + r")\.?[\s\-]+" + day_pattern + r"\s*,?\s*(\d{2,4})?\b",
-         lambda m: (_normalize_year(m[3]), MONTH_NAMES[m[1]], int(m[2]))),
-    ]
 
-    for pattern, to_ymd in patterns:
-        match = re.search(pattern, text)
-        if match:
+def _date_patterns():
+    """Lazily built so _MONTH_ALTERNATION is available first."""
+    global _DATE_PATTERNS
+    if _DATE_PATTERNS is None:
+        day_pattern = r"(\d{1,2})(?:st|nd|rd|th)?"
+        _DATE_PATTERNS = [
+            (r"\b(\d{4})-(\d{1,2})-(\d{1,2})\b", lambda m: (int(m[1]), int(m[2]), int(m[3]))),
+            (r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b", lambda m: (int(m[3]), int(m[2]), int(m[1]))),
+            (r"\b" + day_pattern + r"[\s\-]+(" + _MONTH_ALTERNATION + r")\.?[\s\-]*,?\s*(\d{2,4})?\b",
+             lambda m: (_normalize_year(m[3]), MONTH_NAMES[m[2]], int(m[1]))),
+            (r"\b(" + _MONTH_ALTERNATION + r")\.?[\s\-]+" + day_pattern + r"\s*,?\s*(\d{2,4})?\b",
+             lambda m: (_normalize_year(m[3]), MONTH_NAMES[m[1]], int(m[2]))),
+        ]
+    return _DATE_PATTERNS
+
+
+def _extract_all_dates(text: str):
+    """
+    Finds every recognizable date in free text (ISO, slash DD/MM/YYYY,
+    or written like "10 aug 26" / "aug 10 2026"), normalized to
+    YYYY-MM-DD, in the order they appear. Used both for single-date
+    extraction and for "between X and Y" ranges.
+    """
+    found = []
+    for pattern, to_ymd in _date_patterns():
+        for match in re.finditer(pattern, text):
             try:
                 year, month, day = to_ymd(match)
-                return datetime(year, month, day).strftime("%Y-%m-%d")
+                found.append((match.start(), datetime(year, month, day).strftime("%Y-%m-%d")))
             except (ValueError, KeyError):
                 continue
 
-    return None
+    found.sort(key=lambda x: x[0])
+    seen = set()
+    ordered = []
+    for _, d in found:
+        if d not in seen:
+            seen.add(d)
+            ordered.append(d)
+    return ordered
+
+
+def _extract_date(text: str):
+    dates = _extract_all_dates(text)
+    return dates[0] if dates else None
+
+
+def _last_month_range(today):
+    first_this_month = today.replace(day=1)
+    last_day_prev = first_this_month - timedelta(days=1)
+    first_day_prev = last_day_prev.replace(day=1)
+    return first_day_prev, last_day_prev
+
+
+def _extract_date_range(text: str):
+    """
+    Recognizes relative ranges ("this month", "last week", "last 10
+    days") and explicit "between <date> and <date>" ranges. Returns
+    (date_from, date_to) as YYYY-MM-DD strings, or (None, None).
+    """
+    today = datetime.now().date()
+
+    if "today" in text:
+        return today.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d")
+
+    if "yesterday" in text:
+        y = today - timedelta(days=1)
+        return y.strftime("%Y-%m-%d"), y.strftime("%Y-%m-%d")
+
+    if "this week" in text:
+        start = today - timedelta(days=today.weekday())
+        return start.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d")
+
+    if "last week" in text:
+        start = today - timedelta(days=today.weekday() + 7)
+        end = today - timedelta(days=today.weekday() + 1)
+        return start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d")
+
+    if "this month" in text:
+        return today.replace(day=1).strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d")
+
+    if "last month" in text:
+        start, end = _last_month_range(today)
+        return start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d")
+
+    m = re.search(r"last\s+(\d+)\s+days?", text)
+    if m:
+        n = int(m.group(1))
+        start = today - timedelta(days=n)
+        return start.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d")
+
+    if "between" in text:
+        dates = _extract_all_dates(text)
+        if len(dates) >= 2:
+            return dates[0], dates[1]
+
+    return None, None
+
+
+def _parse_amount(num_str, suffix):
+    val = float(num_str.replace(",", ""))
+    if suffix and suffix.lower() in ("k", "thousand"):
+        val *= 1000
+    return val
+
+
+def _extract_amount_range(text: str):
+    """
+    Recognizes amount comparisons: "over 10000", "above ₹5,000",
+    "under 500", "less than 1k", "between 500 and 1000". Returns
+    (amount_min, amount_max), either of which may be None.
+    """
+    m = re.search(r"between\s+" + AMOUNT_RE + r"\s+and\s+" + AMOUNT_RE, text)
+    if m:
+        low = _parse_amount(m.group(1), m.group(2))
+        high = _parse_amount(m.group(3), m.group(4))
+        return (min(low, high), max(low, high))
+
+    m = re.search(r"(?:over|above|more than|greater than|at least)\s+" + AMOUNT_RE, text)
+    if m:
+        return (_parse_amount(m.group(1), m.group(2)), None)
+
+    m = re.search(r"(?:under|below|less than|at most)\s+" + AMOUNT_RE, text)
+    if m:
+        return (None, _parse_amount(m.group(1), m.group(2)))
+
+    return (None, None)
 
 
 def _extract_name(text: str, trigger: str):
@@ -424,17 +612,39 @@ def _extract_name(text: str, trigger: str):
 
 # ============================================================
 # Unified transaction query handler
-# Detects THREE independent signals -- extremum (smallest/largest),
-# name, and date -- and routes to whichever combination applies:
-# "largest transaction with zoya", "transactions on 10 aug 2026",
-# "largest transaction with zoya on 10 aug 2026", etc.
+# Detects several independent signals -- extremum (smallest/largest),
+# name, single date, date range, transaction type, amount range, and
+# aggregate mode (sum/count) -- and composes whichever combination
+# applies: "largest transfer to zoya last month", "how many withdrawals
+# over 5000 this year", etc.
 # ============================================================
 
-def _detect_extremum(text: str):
+def _detect_extremum(text: str, has_type: bool = False):
     if any(p in text for p in SMALLEST_TRANSACTION_PATTERNS):
         return "asc"
     if any(p in text for p in LARGEST_TRANSACTION_PATTERNS):
         return "desc"
+
+    # Fallback: catches "largest withdrawal", "biggest deposit", etc.
+    # Gated on has_type so it never fires on unrelated messages like
+    # "what's the highest interest rate".
+    if has_type:
+        words = set(re.findall(r"[a-z]+", text))
+        if words & EXTREMUM_WORDS_DESC:
+            return "desc"
+        if words & EXTREMUM_WORDS_ASC:
+            return "asc"
+
+    return None
+
+
+def _detect_type(text: str):
+    """Returns a list of LIKE search terms for transaction_type if the
+    message names a specific kind of transaction (deposit, withdrawal,
+    transfer, international transfer), else None."""
+    for keyword, types in TYPE_KEYWORDS:
+        if keyword in text:
+            return types
     return None
 
 
@@ -447,97 +657,299 @@ def _detect_name(text: str):
     return None
 
 
+def _detect_aggregate_mode(text: str):
+    if any(p in text for p in COUNT_PATTERNS):
+        return "count"
+    if any(p in text for p in SUM_PATTERNS):
+        return "sum"
+    return None
+
+
+def _run_transaction_query(order=None, name=None, date=None, date_from=None,
+                            date_to=None, types=None, amount_min=None,
+                            amount_max=None, mode=None):
+    """Shared routing logic: given whatever filters were detected (from
+    the original message, or completed via slot-filling on a follow-up),
+    decides which banking_ai function actually answers the question."""
+
+    if not session.current_user:
+        return _reply("Please log in first to check your transactions.")
+
+    has_filters = any([
+        name, date, date_from, date_to, types,
+        amount_min is not None, amount_max is not None
+    ])
+
+    if mode:
+        return _reply(get_transaction_aggregate(
+            mode, name=name, date=date, date_from=date_from, date_to=date_to,
+            types=types, amount_min=amount_min, amount_max=amount_max
+        ))
+
+    if order and has_filters:
+        return _reply(get_extreme_transaction_filtered(
+            order, name=name, date=date, date_from=date_from, date_to=date_to,
+            types=types, amount_min=amount_min, amount_max=amount_max
+        ))
+
+    if order:
+        return _reply(get_smallest_transaction() if order == "asc" else get_largest_transaction())
+
+    if has_filters:
+        return _reply(get_transactions_filtered(
+            name=name, date=date, date_from=date_from, date_to=date_to,
+            types=types, amount_min=amount_min, amount_max=amount_max
+        ))
+
+    return None
+
+
+def _resolve_pending_query(pq: dict, message: str):
+    """
+    Attempts to fill in whatever slot was missing (a name or a date/date
+    range) using the person's follow-up reply, then re-runs the original
+    query with everything merged in. Returns None if the reply doesn't
+    look like it answers the question, so the caller can fall back to
+    treating it as a brand-new message instead.
+    """
+    text = _normalize(message)
+
+    if pq["missing"] == "name":
+        words = re.findall(r"[a-zA-Z]+", text)
+        words = [w for w in words if w not in NAME_STOPWORDS]
+        if not words or len(words) > 3:
+            return None
+        name = " ".join(words[:2]).title()
+        return _run_transaction_query(
+            order=pq.get("order"), name=name, date=pq.get("date"),
+            date_from=pq.get("date_from"), date_to=pq.get("date_to"),
+            types=pq.get("types"), amount_min=pq.get("amount_min"),
+            amount_max=pq.get("amount_max"), mode=pq.get("mode"),
+        )
+
+    if pq["missing"] == "date":
+        date = _extract_date(text)
+        date_from, date_to = (None, None)
+        if not date:
+            date_from, date_to = _extract_date_range(text)
+        if not date and not date_from:
+            return None
+        return _run_transaction_query(
+            order=pq.get("order"), name=pq.get("name"), date=date,
+            date_from=date_from, date_to=date_to,
+            types=pq.get("types"), amount_min=pq.get("amount_min"),
+            amount_max=pq.get("amount_max"), mode=pq.get("mode"),
+        )
+
+    return None
+
+
 def _handle_transaction_query(message: str):
+
+    pending_key = _pending_key(_get_current_username())
 
     text = _normalize(message)
     mentions_transaction = bool(TRANSACTION_WORD_RE.search(text))
     has_date_trigger = any(t in text for t in DATE_TRANSACTION_TRIGGERS)
     has_name_trigger = any(t in text for t in NAME_TRANSACTION_TRIGGERS)
 
-    order = _detect_extremum(text)
+    txn_types = _detect_type(text)
+    order = _detect_extremum(text, has_type=bool(txn_types))
     name = _detect_name(text)
     date = _extract_date(text) if (mentions_transaction or has_date_trigger) else None
+    date_from, date_to = _extract_date_range(text)
 
-    if order is None and name is None and date is None and not mentions_transaction:
+    amount_min, amount_max = _extract_amount_range(text)
+    has_amount_range = amount_min is not None or amount_max is not None
+
+    has_query_verb = any(v in text for v in QUERY_VERBS)
+
+    # A bare type keyword ("deposit", "withdraw", "transfer") only counts
+    # as a lookup request if there's also an explicit query signal --
+    # otherwise "I want to deposit money" would get hijacked away from
+    # the normal deposit-action intent.
+    type_is_lookup = bool(txn_types) and (
+        mentions_transaction or has_date_trigger or has_name_trigger
+        or has_query_verb or date_from or date_to or has_amount_range
+    )
+
+    mode = _detect_aggregate_mode(text)
+    has_extra_filter = bool(
+        txn_types or date_from or date_to or has_amount_range or name or date
+    )
+    # Don't let a bare "how much did i spend" / "total" (no extra filter)
+    # hijack the existing 30-day spending-summary handler -- only claim
+    # "sum" here when there's a specific filter attached to it.
+    if mode == "sum" and not has_extra_filter:
+        mode = None
+
+    signals_present = any([
+        order, name, date, date_from, date_to, mode, has_amount_range,
+        mentions_transaction, has_date_trigger, has_name_trigger, type_is_lookup
+    ])
+
+    if not signals_present:
         return None
 
-    if has_date_trigger and date is None and order is None and name is None:
+    if has_date_trigger and date is None and date_from is None and order is None and name is None:
+        _pending_query[pending_key] = {
+            "missing": "date", "order": order, "types": txn_types,
+            "name": name, "amount_min": amount_min, "amount_max": amount_max,
+            "mode": mode,
+        }
         return _reply(
             "I can look up transactions for a specific date — "
             "try something like \"transactions on 2024-05-01\" "
             "or \"transactions on 10 aug 2026\"."
         )
 
-    if has_name_trigger and name is None and order is None and date is None:
+    if has_name_trigger and name is None and order is None and date is None and date_from is None:
+        _pending_query[pending_key] = {
+            "missing": "name", "order": order, "types": txn_types,
+            "date": date, "date_from": date_from, "date_to": date_to,
+            "amount_min": amount_min, "amount_max": amount_max, "mode": mode,
+        }
         return _reply(
             "Who would you like to look up transactions for? "
             "Try something like \"transactions with Priya\"."
         )
 
-    if not session.current_user:
-        return _reply("Please log in first to check your transactions.")
-
-    if order and (name or date):
-        return _reply(get_extreme_transaction_filtered(order, name=name, date=date))
-    if order:
-        return _reply(get_smallest_transaction() if order == "asc" else get_largest_transaction())
-    if name or date:
-        return _reply(get_transactions_filtered(name=name, date=date))
+    result = _run_transaction_query(
+        order=order, name=name, date=date, date_from=date_from, date_to=date_to,
+        types=txn_types, amount_min=amount_min, amount_max=amount_max, mode=mode,
+    )
 
     # Just mentions "transaction(s)" with no specifics -- let the normal
     # "transactions" intent handle the recent-5 list.
-    return None
+    return result
 
 
 # ============================================================
 # Loan status
 # ============================================================
 
-def _handle_loan_status(message: str):
-
-    text = _normalize(message)
-    if not any(p in text for p in LOAN_STATUS_PATTERNS):
-        return None
-
-    if not session.current_user:
-        return _reply("Please log in to check your loan status.")
-
-    user_id = session.current_user[0]
-
+def _get_all_loans(user_id):
     conn = sqlite3.connect("bank.db")
     cursor = conn.cursor()
     cursor.execute(
         """
-        SELECT loan_type, amount, duration, interest, status, remarks
+        SELECT loan_type, amount, duration, interest, status, remarks, applied_date
         FROM loans
         WHERE user_id=?
         ORDER BY id DESC
-        LIMIT 1
         """,
         (user_id,)
     )
-    loan = cursor.fetchone()
+    rows = cursor.fetchall()
     conn.close()
+    return rows
 
-    if not loan:
+
+def _calc_emi(amount, duration, interest):
+    monthly_rate = interest / 12 / 100
+    if monthly_rate > 0:
+        return amount * monthly_rate * (1 + monthly_rate) ** duration / ((1 + monthly_rate) ** duration - 1)
+    return amount / duration
+
+
+def _add_months(dt, months):
+    """Simple month-add helper (no external dateutil dependency).
+    Clamps day to 28 to sidestep month-length edge cases -- fine for an
+    estimate, not meant to be exact to the day."""
+    total_month_index = dt.month - 1 + months
+    year = dt.year + total_month_index // 12
+    month = total_month_index % 12 + 1
+    day = min(dt.day, 28)
+    return dt.replace(year=year, month=month, day=day)
+
+
+def _handle_loan_query(message: str):
+
+    text = _normalize(message)
+
+    is_list = any(p in text for p in LOAN_LIST_PATTERNS)
+    is_due = any(p in text for p in LOAN_DUE_PATTERNS)
+    is_owe = any(p in text for p in LOAN_OWE_PATTERNS)
+    is_emi = any(p in text for p in LOAN_EMI_PATTERNS)
+    is_status = any(p in text for p in LOAN_STATUS_PATTERNS)
+
+    if not any([is_list, is_due, is_owe, is_emi, is_status]):
+        return None
+
+    if not session.current_user:
+        return _reply("Please log in to check your loan details.")
+
+    user_id = session.current_user[0]
+    loans = _get_all_loans(user_id)
+
+    if not loans:
         return _reply(
             "You haven't applied for any loans yet. "
             "Want me to open the Loans page?"
         )
 
-    loan_type, amount, duration, interest, status, remarks = loan
-    monthly_rate = interest / 12 / 100
+    # --- List all loans ---
+    if is_list:
+        lines = []
+        for loan_type, amount, duration, interest, status, remarks, applied_date in loans:
+            emoji = "🟢" if status == "Approved" else ("🔴" if status == "Rejected" else "🟡")
+            lines.append(
+                f"• {loan_type} — ₹{amount:,.2f} over {duration} months — "
+                f"{status} {emoji} (applied {str(applied_date)[:10]})"
+            )
+        return _reply("📋 Your loans:\n\n" + "\n".join(lines))
 
-    if monthly_rate > 0:
-        emi = (
-            amount * monthly_rate * (1 + monthly_rate) ** duration
-            / ((1 + monthly_rate) ** duration - 1)
+    # Everything else works off the most recent loan.
+    loan_type, amount, duration, interest, status, remarks, applied_date = loans[0]
+
+    if status != "Approved":
+        remark_note = f" — {remarks}" if remarks else ""
+        return _reply(
+            f"Your most recent loan ({loan_type}, ₹{amount:,.2f}) is currently "
+            f"{status}{remark_note}. EMI details apply once a loan is approved."
         )
-    else:
-        emi = amount / duration
 
+    emi = _calc_emi(amount, duration, interest)
+    total_payable = emi * duration
+    total_interest = total_payable - amount
+
+    # --- Next EMI due (estimate only -- no repayment schedule is tracked) ---
+    if is_due:
+        try:
+            applied = datetime.strptime(str(applied_date)[:10], "%Y-%m-%d")
+        except (ValueError, TypeError):
+            applied = datetime.now()
+
+        now = datetime.now()
+        months_elapsed = max(0, (now.year - applied.year) * 12 + (now.month - applied.month))
+        next_due = _add_months(applied, months_elapsed + 1)
+
+        return _reply(
+            f"📅 Based on your loan start date ({str(applied_date)[:10]}), your next "
+            f"estimated EMI of ₹{emi:,.2f} would fall around {next_due.strftime('%Y-%m-%d')}.\n\n"
+            f"Note: SmartBank doesn't track individual EMI payments yet, so this is "
+            f"an estimate based on a monthly schedule, not a confirmed due date."
+        )
+
+    # --- Total owed (estimate only -- assumes no payments made yet) ---
+    if is_owe:
+        return _reply(
+            f"💰 Your {loan_type} of ₹{amount:,.2f} has a total repayable amount of "
+            f"₹{total_payable:,.2f} (₹{amount:,.2f} principal + ₹{total_interest:,.2f} interest) "
+            f"over {duration} months.\n\n"
+            f"Note: SmartBank doesn't yet track individual payments made, so this is "
+            f"the full repayment total, not adjusted for anything already paid."
+        )
+
+    # --- Just the EMI figure ---
+    if is_emi:
+        return _reply(
+            f"💳 Your estimated monthly EMI for your {loan_type} is "
+            f"₹{emi:,.2f} over {duration} months."
+        )
+
+    # --- Full status block (original behavior) ---
     status_emoji = "🟢" if status == "Approved" else "🔴"
-
     reply = (
         f"Your most recent loan application:\n\n"
         f"Type: {loan_type}\n"
@@ -545,10 +957,8 @@ def _handle_loan_status(message: str):
         f"Duration: {duration} months\n"
         f"Status: {status} {status_emoji}\n"
         f"Remarks: {remarks}\n"
+        f"Estimated Monthly EMI: ₹{emi:,.2f}"
     )
-    if status == "Approved":
-        reply += f"Estimated Monthly EMI: ₹{emi:,.2f}"
-
     return _reply(reply)
 
 
@@ -591,8 +1001,8 @@ def _handle_spending_summary(message: str):
             )
             if response and response.text:
                 reply = response.text.strip()
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"[Gemini spending-summary error] {type(e).__name__}: {e}")
 
     return _reply(reply)
 
@@ -606,28 +1016,101 @@ def get_startup_nudges():
 
 
 # ============================================================
-# Gemini fallback
+# Gemini: intent classification (catches phrasing the rules miss)
 # ============================================================
 
-def _ask_gemini(message: str):
+def _gemini_classify_intent(message: str):
+    """
+    When substring pattern-matching finds no intent, ask Gemini to pick
+    the closest matching known intent instead of falling straight to
+    open-ended free-form chat. This lets phrasing the hand-written
+    patterns don't cover -- e.g. "wanna move some cash to my buddy" --
+    still resolve to the right action (transfer) instead of dead-ending
+    in generic Q&A. Returns an intent dict from INTENTS, or None if
+    Gemini is unavailable or thinks nothing fits well.
+    """
+    if not _gemini_ready:
+        return None
+
+    intent_list = "\n".join(
+        f"- {intent['name']}: e.g. \"{intent['patterns'][0]}\", \"{intent['patterns'][-1]}\""
+        for intent in INTENTS
+    )
+
+    prompt = (
+        "You are an intent classifier for Milo, a banking app assistant. "
+        "Given the user's message, choose the SINGLE closest matching intent "
+        "from the list below, even if the wording doesn't match exactly -- "
+        "use your judgement about what the user actually wants to do. "
+        "If nothing genuinely fits, respond with exactly: none\n\n"
+        f"Intents:\n{intent_list}\n\n"
+        f"User message: \"{message}\"\n\n"
+        "Respond with ONLY the intent name from the list above, or the word "
+        "none. No punctuation, no explanation, nothing else."
+    )
+
+    try:
+        response = _gemini_client.models.generate_content(
+            model="gemini-flash-latest", contents=prompt
+        )
+        if not response or not response.text:
+            return None
+        name = response.text.strip().lower().strip(" .\"'")
+        return _INTENTS_BY_NAME.get(name)
+    except Exception as e:
+        print(f"[Gemini intent-classify error] {type(e).__name__}: {e}")
+        return None
+
+
+# ============================================================
+# Gemini fallback (open-ended chat, with recent context)
+# ============================================================
+
+def _recent_history_snippet(username, max_messages=6):
+    """Builds a short "Recent conversation:" block from chat history so
+    the Gemini fallback can handle follow-ups like "what about last
+    week?" instead of answering each message in isolation."""
+    if not username:
+        return ""
+    try:
+        history = chat_history.load_history(username)
+    except Exception:
+        return ""
+    if not history:
+        return ""
+
+    recent = history[-max_messages:]
+    lines = [
+        f"{'User' if entry['role'] == 'user' else 'Milo'}: {entry['text']}"
+        for entry in recent
+    ]
+    return "Recent conversation so far:\n" + "\n".join(lines) + "\n\n"
+
+
+def _ask_gemini(message: str, username=None):
 
     if not _gemini_ready:
         return None
 
+    history_snippet = _recent_history_snippet(username)
+
+    prompt = (
+        "You are Milo, a friendly and concise AI assistant for SmartBank, "
+        "a banking app. Answer the user's question in 2-4 short sentences. "
+        "Use the recent conversation below for context if it's relevant to "
+        "the current message, e.g. resolving follow-ups like \"what about "
+        "last week\". Do not give specific financial or investment advice. "
+        "For banking actions such as deposit, withdraw, transfer, and loans, "
+        "direct the user to the appropriate SmartBank page.\n\n"
+        f"{history_snippet}"
+        f"User's message: {message}"
+    )
+
     try:
-        prompt = (
-            "You are Milo, a friendly and concise AI assistant for SmartBank, "
-            "a banking app. Answer the user's question in 2-4 short sentences. "
-            "Do not give specific financial or investment advice. "
-            "For banking actions such as deposit, withdraw, transfer, and loans, "
-            "direct the user to the appropriate SmartBank page. "
-            f"User's message: {message}"
-        )
         response = _gemini_client.models.generate_content(
             model="gemini-flash-latest", contents=prompt
         )
         return response.text.strip() if response and response.text else None
-
     except Exception as e:
         print(f"[Gemini error] {type(e).__name__}: {e}")
         return None
@@ -640,14 +1123,12 @@ _FALLBACK_HELP_TEXT = (
     "• Withdrawals\n"
     "• Transfers\n"
     "• Loans\n"
-    "• Transactions\n"
+    "• Transactions (by type, date, date range, person, or amount)\n"
     "• Spending summary\n"
-    "• Smallest transaction\n"
-    "• Largest transaction\n"
-    "• Transactions on a specific date\n"
-    "• Transactions with a specific person\n"
+    "• Smallest / largest transaction\n"
+    "• Totals and counts\n"
     "• Banking services\n\n"
-    "Try something like \"check my balance\" or \"what is my largest transaction\"."
+    "Try something like \"check my balance\" or \"largest withdrawal this month\"."
 )
 
 
@@ -661,7 +1142,7 @@ _FALLBACK_HELP_TEXT = (
 # checked before loan/spending since some phrasings could overlap.
 _QUERY_HANDLERS = (
     _handle_transaction_query,
-    _handle_loan_status,
+    _handle_loan_query,
     _handle_spending_summary,
 )
 
@@ -669,6 +1150,7 @@ _QUERY_HANDLERS = (
 def ask_assistant(message: str):
 
     username = _get_current_username()
+    pending_key = _pending_key(username)
 
     if username:
         chat_history.append_message(username, "user", message)
@@ -676,15 +1158,29 @@ def ask_assistant(message: str):
     text = _normalize(message)
 
     # --- Yes / No follow-up on a previously offered action ---
-    if _last_action["pending"]:
+    # Scoped per-user via pending_key so one user's confirmation can
+    # never trigger or clear a different user's pending action.
+    if _last_action.get(pending_key):
         if text in YES_WORDS or any(w in text for w in YES_WORDS):
-            action = _last_action["pending"]
-            _last_action["pending"] = None
+            action = _last_action[pending_key]
+            _last_action[pending_key] = None
             return _finalize(username, _reply("Great, opening that for you now.", action))
 
         if text in NO_WORDS or any(w in text for w in NO_WORDS):
-            _last_action["pending"] = None
+            _last_action[pending_key] = None
             return _finalize(username, _reply("No problem! Let me know if you need anything else."))
+
+    # --- Slot-filling follow-up on a previously incomplete query ---
+    # e.g. bot asked "who would you like to look up?" and this message
+    # is the answer ("Priya") rather than a brand-new question.
+    pq = _pending_query.get(pending_key)
+    if pq:
+        resolved = _resolve_pending_query(pq, message)
+        _pending_query[pending_key] = None
+        if resolved is not None:
+            return _finalize(username, resolved)
+        # Reply didn't look like an answer to the pending question --
+        # fall through and treat this message as brand new.
 
     # --- Transaction queries / loan status / spending summary ---
     # Checked before generic intents so they aren't swallowed by the
@@ -696,14 +1192,22 @@ def ask_assistant(message: str):
 
     # --- Normal rule-based intents ---
     intent = _match_intent(message)
+
+    # --- Gemini intent classification ---
+    # Only reached if substring patterns found nothing. Catches phrasing
+    # variety the hand-written patterns don't cover, before giving up
+    # and treating the message as generic open-ended chat.
+    if not intent:
+        intent = _gemini_classify_intent(message)
+
     if intent:
         reply = random.choice(intent["replies"])
         if intent["action"]:
-            _last_action["pending"] = intent["action"]
+            _last_action[pending_key] = intent["action"]
             reply += "\n\nWould you like me to open that for you? (yes/no)"
         return _finalize(username, _reply(reply))
 
-    # --- Gemini fallback ---
-    _last_action["pending"] = None
-    gemini_reply = _ask_gemini(message)
+    # --- Gemini fallback (open-ended, with recent context) ---
+    _last_action[pending_key] = None
+    gemini_reply = _ask_gemini(message, username)
     return _finalize(username, _reply(gemini_reply or _FALLBACK_HELP_TEXT))

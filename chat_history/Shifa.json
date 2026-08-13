@@ -318,5 +318,15 @@
     "role": "milo",
     "text": "No transactions found on 2026-08-12.",
     "time": "2026-08-12 12:50:39"
+  },
+  {
+    "role": "user",
+    "text": "I want to deposit money",
+    "time": "2026-08-13 10:10:00"
+  },
+  {
+    "role": "milo",
+    "text": "Let's get your deposit done! Go to Deposit \u2192 enter the amount \u2192 confirm the transaction. Your account balance will be updated automatically.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-13 10:10:00"
   }
 ]

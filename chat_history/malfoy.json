@@ -8,5 +8,65 @@
     "role": "milo",
     "text": "\ud83d\udcb0 Your largest transaction was \u20b91,055,370.21 (International Transfer \u2192 Shifa (United Arab Emirates)) on 2026-08-12 10:56:47.",
     "time": "2026-08-12 16:37:55"
+  },
+  {
+    "role": "user",
+    "text": "check my balance",
+    "time": "2026-08-13 09:44:33"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! I can show your account balance on the Dashboard.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-13 09:44:33"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-13 09:44:37"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-13 09:44:38"
+  },
+  {
+    "role": "user",
+    "text": "check my balance",
+    "time": "2026-08-13 10:06:11"
+  },
+  {
+    "role": "milo",
+    "text": "You can view your current balance from the Dashboard page.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-13 10:06:11"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-13 10:06:18"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-13 10:06:18"
+  },
+  {
+    "role": "user",
+    "text": "transactions with sky",
+    "time": "2026-08-13 10:06:33"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found with Sky.",
+    "time": "2026-08-13 10:06:33"
+  },
+  {
+    "role": "user",
+    "text": "transactions with Amaira",
+    "time": "2026-08-13 10:06:52"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Amaira\n\n\u2022 Transfer \u2192 Amaira | \u20b970,000.00 | 2026-08-12 11:57:50\n",
+    "time": "2026-08-13 10:06:52"
   }
 ]

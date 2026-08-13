@@ -248,5 +248,35 @@
     "role": "milo",
     "text": "Sure! To view your transactions, open the Transactions page to see your recent deposits, withdrawals, and transfers.\n\nWould you like me to open that for you? (yes/no)",
     "time": "2026-08-12 14:19:12"
+  },
+  {
+    "role": "user",
+    "text": "show all transfers",
+    "time": "2026-08-13 10:30:40"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions (Transfer)\n\n\u2022 Transfer \u2192 lilly | \u20b950,000.00 | 2026-08-12 12:41:16\n\u2022 Transfer \u2192 Shifa | \u20b950,000.00 | 2026-08-12 08:47:16\n\u2022 International Transfer \u2192 Shifa (Australia) | \u20b945,675.00 | 2026-08-12 07:10:16\n\u2022 International Transfer \u2192 Rakshitha (Australia) | \u20b950,750.00 | 2026-08-11 10:17:53\n\u2022 Transfer \u2192 potter | \u20b92,000.00 | 2026-08-07 08:59:42\n\u2022 Transfer \u2192 potter | \u20b920,000.00 | 2026-08-05 10:01:18\n\u2022 Transfer \u2192 alex | \u20b915,000.00 | 2026-08-04 10:12:33\n",
+    "time": "2026-08-13 10:30:40"
+  },
+  {
+    "role": "user",
+    "text": "largest transfer",
+    "time": "2026-08-13 10:30:47"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction (Transfer) was \u20b950,750.00 (International Transfer \u2192 Rakshitha (Australia)) on 2026-08-11 10:17:53.",
+    "time": "2026-08-13 10:30:47"
+  },
+  {
+    "role": "user",
+    "text": "smallest deposits",
+    "time": "2026-08-13 10:31:02"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction (Deposit) was \u20b92,000.00 (Deposit) on 2026-08-05 10:01:07.",
+    "time": "2026-08-13 10:31:02"
   }
 ]

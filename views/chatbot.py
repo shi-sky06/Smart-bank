@@ -52,7 +52,6 @@ class ChatbotPage(ctk.CTkFrame):
         
         self._load_previous_conversation()
         self.chat_box.configure(state="disabled")
-        if self._had_history: self._hide_faq_cards()
         
         # Typing indicator
         self.typing_label = ctk.CTkLabel(self, text="", font=("Arial", 13), text_color="#6B7280", anchor="w")
@@ -143,13 +142,18 @@ class ChatbotPage(ctk.CTkFrame):
             self.faq_wrap.grid_remove()
             self._faq_visible = False
 
+    def _show_faq_cards(self):
+        if not self._faq_visible:
+            self.faq_wrap.grid()
+            self._faq_visible = True
+
     def get_ai_response(self, message):
         try:
             response = ask_assistant(message)
             reply, action = response["reply"], response["action"]
         except Exception as e:
             print(f"[Assistant error] {type(e).__name__}: {e}")
-            reply, action = "Sorry, something went wrong. Please try again.", None
+            reply, action = f"Sorry, something went wrong ({type(e).__name__}). Please try again.", None
         self.after(0, lambda: self.finish_response(reply, action))
 
     def finish_response(self, reply, action):
