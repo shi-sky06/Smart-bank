@@ -158,5 +158,25 @@
     "role": "milo",
     "text": "You can view your current balance from the Dashboard page.\n\nWould you like me to open that for you? (yes/no)",
     "time": "2026-08-13 15:14:13"
+  },
+  {
+    "role": "user",
+    "text": "hii my trnsactions on 17-08-2026",
+    "time": "2026-08-17 10:09:46"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! Ask me about deposits, withdrawals, transfers, loans, or your balance.",
+    "time": "2026-08-17 10:09:46"
+  },
+  {
+    "role": "user",
+    "text": "largest transaction with sky",
+    "time": "2026-08-17 10:10:25"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction with Sky was \u20b920,000.00 (Transfer \u2192 sky) on 2026-08-05 05:00:55.",
+    "time": "2026-08-17 10:10:25"
   }
 ]

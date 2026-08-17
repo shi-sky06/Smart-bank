@@ -1,0 +1,42 @@
+[
+  {
+    "role": "user",
+    "text": "what is my largest transaction",
+    "time": "2026-08-17 11:35:41"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b93,000.00 (Transfer \u2192 Shifa) on 2026-08-12 05:09:53.",
+    "time": "2026-08-17 11:35:41"
+  },
+  {
+    "role": "user",
+    "text": "I want to transfer money",
+    "time": "2026-08-17 11:36:39"
+  },
+  {
+    "role": "milo",
+    "text": "Let's get your transfer done! Go to Transfer \u2192 enter the recipient's username \u2192 enter the amount \u2192 confirm the transaction. Your balance will be updated automatically.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-17 11:36:39"
+  },
+  {
+    "role": "user",
+    "text": "fetvh my transactions with sky",
+    "time": "2026-08-17 11:37:00"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found with Sky.",
+    "time": "2026-08-17 11:37:00"
+  },
+  {
+    "role": "user",
+    "text": "fetch my transactions with sky",
+    "time": "2026-08-17 11:37:22"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found with Sky.",
+    "time": "2026-08-17 11:37:22"
+  }
+]
