@@ -1,0 +1,42 @@
+[
+  {
+    "role": "user",
+    "text": "transactions on 10 aug 2026",
+    "time": "2026-08-17 15:37:25"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found on 2026-08-10.",
+    "time": "2026-08-17 15:37:25"
+  },
+  {
+    "role": "user",
+    "text": "hiya",
+    "time": "2026-08-17 15:38:20"
+  },
+  {
+    "role": "milo",
+    "text": "Hello! I'm Milo, your SmartBank AI Assistant. How can I help you today?",
+    "time": "2026-08-17 15:38:20"
+  },
+  {
+    "role": "user",
+    "text": "hola",
+    "time": "2026-08-17 15:38:29"
+  },
+  {
+    "role": "milo",
+    "text": "Hey there! What can I do for you today?",
+    "time": "2026-08-17 15:38:30"
+  },
+  {
+    "role": "user",
+    "text": "international transactions on 17 aug 2026",
+    "time": "2026-08-17 15:39:40"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions on 2026-08-17\n\n\u2022 Deposit | \u20b9300,000.00 | 2026-08-17 10:09:14\n\u2022 International Transfer \u2192 Tabby (Germany) | \u20b9224,596.00 | 2026-08-17 10:09:00\n\u2022 Deposit | \u20b9200,000.00 | 2026-08-17 10:08:08\n\u2022 Transfer \u2192 Shifa | \u20b92,000.00 | 2026-08-17 10:07:54\n\u2022 Withdraw | \u20b95,000.00 | 2026-08-17 10:07:34\n",
+    "time": "2026-08-17 15:39:40"
+  }
+]

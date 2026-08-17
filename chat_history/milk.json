@@ -1,0 +1,92 @@
+[
+  {
+    "role": "user",
+    "text": "what is my largest transaction",
+    "time": "2026-08-17 17:12:51"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b910,000.00 (Deposit) on 2026-08-17 11:42:36.",
+    "time": "2026-08-17 17:12:51"
+  },
+  {
+    "role": "user",
+    "text": "pending loan amount",
+    "time": "2026-08-17 17:16:32"
+  },
+  {
+    "role": "user",
+    "text": "I want to withdraw money",
+    "time": "2026-08-17 17:17:07"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To withdraw money, open the Withdraw page, enter the amount you want to withdraw, and click Confirm Withdrawal.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-17 17:17:07"
+  },
+  {
+    "role": "milo",
+    "text": "You can view your pending loan amount and repayment details directly in the SmartBank app. Simply navigate to the **Loans** section from your main dashboard to see your active balances and upcoming dues. Let me know if you need help finding anything else!",
+    "time": "2026-08-17 17:17:12"
+  },
+  {
+    "role": "user",
+    "text": "okkk",
+    "time": "2026-08-17 17:17:18"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-17 17:17:18"
+  },
+  {
+    "role": "user",
+    "text": "loans",
+    "time": "2026-08-17 17:17:33"
+  },
+  {
+    "role": "milo",
+    "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans\n\u2022 Transactions (by type, date, date range, person, or amount)\n\u2022 Spending summary\n\u2022 Smallest / largest transaction\n\u2022 Totals and counts\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"largest withdrawal this month\".",
+    "time": "2026-08-17 17:17:40"
+  },
+  {
+    "role": "user",
+    "text": "Totals and counts",
+    "time": "2026-08-17 17:17:59"
+  },
+  {
+    "role": "milo",
+    "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans\n\u2022 Transactions (by type, date, date range, person, or amount)\n\u2022 Spending summary\n\u2022 Smallest / largest transaction\n\u2022 Totals and counts\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"largest withdrawal this month\".",
+    "time": "2026-08-17 17:18:20"
+  },
+  {
+    "role": "user",
+    "text": "fund recieved on 17 aug 2026",
+    "time": "2026-08-17 17:18:47"
+  },
+  {
+    "role": "milo",
+    "text": "Let's review your transaction history! Go to Transactions \u2192 view your recent deposits, withdrawals, and transfers \u2192 select a transaction if you need more details.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-17 17:18:56"
+  },
+  {
+    "role": "user",
+    "text": "transfers on 17 aug 2026",
+    "time": "2026-08-17 17:19:12"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To transfer money, open the Transfer page, enter the recipient's username, enter the amount, and click Confirm Transfer.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-17 17:19:12"
+  },
+  {
+    "role": "user",
+    "text": "fetch my transfer on 17 aug 2026",
+    "time": "2026-08-17 17:19:28"
+  },
+  {
+    "role": "milo",
+    "text": "Let's get your transfer done! Go to Transfer \u2192 enter the recipient's username \u2192 enter the amount \u2192 confirm the transaction. Your balance will be updated automatically.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-17 17:19:28"
+  }
+]
