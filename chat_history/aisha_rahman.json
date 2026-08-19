@@ -1,0 +1,72 @@
+[
+  {
+    "role": "user",
+    "text": "hii",
+    "time": "2026-08-18 14:49:07"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! Ask me about deposits, withdrawals, transfers, loans, or your balance.",
+    "time": "2026-08-18 14:49:07"
+  },
+  {
+    "role": "user",
+    "text": "fetch my transactions",
+    "time": "2026-08-18 14:49:15"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To view your transactions, open the Transactions page to see your recent deposits, withdrawals, and transfers.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-18 14:49:15"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-18 14:49:19"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-18 14:49:19"
+  },
+  {
+    "role": "user",
+    "text": "fetch my transactions with Yan",
+    "time": "2026-08-18 14:52:15"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Yan\n\n\u2022 Transfer \u2192 Yan | \u20b95,000.00 | 2026-08-11 07:19:47\n",
+    "time": "2026-08-18 14:52:15"
+  },
+  {
+    "role": "user",
+    "text": "my largest transaction",
+    "time": "2026-08-18 14:53:05"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b952,000.00 (Deposit) on 2026-08-11 07:19:14.",
+    "time": "2026-08-18 14:53:05"
+  },
+  {
+    "role": "user",
+    "text": "smallest transaction with Shifa",
+    "time": "2026-08-18 14:53:49"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found with Shifa.",
+    "time": "2026-08-18 14:53:49"
+  },
+  {
+    "role": "user",
+    "text": "smallest transaction with sky",
+    "time": "2026-08-18 14:54:38"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction with Sky was \u20b920,000.00 (Transfer \u2192 sky) on 2026-08-11 07:19:32.",
+    "time": "2026-08-18 14:54:38"
+  }
+]

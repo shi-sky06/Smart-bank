@@ -328,5 +328,120 @@
     "role": "milo",
     "text": "Let's get your deposit done! Go to Deposit \u2192 enter the amount \u2192 confirm the transaction. Your account balance will be updated automatically.\n\nWould you like me to open that for you? (yes/no)",
     "time": "2026-08-13 10:10:00"
+  },
+  {
+    "role": "user",
+    "text": "hii",
+    "time": "2026-08-18 11:34:48"
+  },
+  {
+    "role": "milo",
+    "text": "Hello! I'm Milo, your SmartBank AI Assistant. How can I help you today?",
+    "time": "2026-08-18 11:34:48"
+  },
+  {
+    "role": "user",
+    "text": "my withdrawals",
+    "time": "2026-08-18 11:34:54"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To withdraw money, open the Withdraw page, enter the amount you want to withdraw, and click Confirm Withdrawal.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-18 11:34:54"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-18 11:35:00"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-18 11:35:00"
+  },
+  {
+    "role": "user",
+    "text": "close acount",
+    "time": "2026-08-18 11:37:33"
+  },
+  {
+    "role": "milo",
+    "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans\n\u2022 Transactions (by type, date, date range, person, or amount)\n\u2022 Spending summary\n\u2022 Smallest / largest transaction\n\u2022 Totals and counts\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"largest withdrawal this month\".",
+    "time": "2026-08-18 11:39:38"
+  },
+  {
+    "role": "user",
+    "text": "get me my past transactions from 12 aug 2026",
+    "time": "2026-08-18 11:41:11"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found on 2026-08-12.",
+    "time": "2026-08-18 11:41:12"
+  },
+  {
+    "role": "user",
+    "text": "pull my transactions on 13 aug 2026 with sky",
+    "time": "2026-08-18 11:43:47"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions on 2026-08-13\n\n\u2022 International Transfer \u2192 sam (United States) | \u20b9484,216.10 | 2026-08-13 06:06:46\n\u2022 Withdraw | \u20b9100,000.00 | 2026-08-13 06:06:04\n",
+    "time": "2026-08-18 11:43:47"
+  },
+  {
+    "role": "user",
+    "text": "hii",
+    "time": "2026-08-19 10:03:27"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! Ask me about deposits, withdrawals, transfers, loans, or your balance.",
+    "time": "2026-08-19 10:03:27"
+  },
+  {
+    "role": "user",
+    "text": "emi",
+    "time": "2026-08-19 10:03:32"
+  },
+  {
+    "role": "user",
+    "text": "explain lona to me",
+    "time": "2026-08-19 10:04:27"
+  },
+  {
+    "role": "user",
+    "text": "loan",
+    "time": "2026-08-19 10:04:34"
+  },
+  {
+    "role": "user",
+    "text": "hii",
+    "time": "2026-08-19 10:04:43"
+  },
+  {
+    "role": "milo",
+    "text": "Hey there! What can I do for you today?",
+    "time": "2026-08-19 10:04:43"
+  },
+  {
+    "role": "user",
+    "text": "fetch smallest transactions",
+    "time": "2026-08-19 10:04:56"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction was \u20b9300.00 (Transfer \u2192 Arjun12) on 2026-08-11 11:08:12.",
+    "time": "2026-08-19 10:04:56"
+  },
+  {
+    "role": "user",
+    "text": "what is blue",
+    "time": "2026-08-19 10:05:03"
+  },
+  {
+    "role": "milo",
+    "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans\n\u2022 Transactions (by type, date, date range, person, or amount)\n\u2022 Spending summary\n\u2022 Smallest / largest transaction\n\u2022 Totals and counts\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"largest withdrawal this month\".",
+    "time": "2026-08-19 10:06:00"
   }
 ]

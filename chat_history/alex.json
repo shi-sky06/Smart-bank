@@ -178,5 +178,90 @@
     "role": "milo",
     "text": "\ud83d\udcb0 Your largest transaction with Sky was \u20b920,000.00 (Transfer \u2192 sky) on 2026-08-05 05:00:55.",
     "time": "2026-08-17 10:10:25"
+  },
+  {
+    "role": "user",
+    "text": "my withdraw amounts",
+    "time": "2026-08-18 12:01:02"
+  },
+  {
+    "role": "milo",
+    "text": "Let's get your withdrawal done! Go to Withdraw \u2192 enter the amount \u2192 confirm the transaction. Your account balance will be updated automatically.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-18 12:01:02"
+  },
+  {
+    "role": "user",
+    "text": "my largest withdrawal amount",
+    "time": "2026-08-18 12:01:15"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction (Withdraw) was \u20b950,000.00 (Withdraw) on 2026-08-13 04:50:54.",
+    "time": "2026-08-18 12:01:15"
+  },
+  {
+    "role": "user",
+    "text": "transactions with Tabby",
+    "time": "2026-08-18 12:01:38"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found with Tabby.",
+    "time": "2026-08-18 12:01:38"
+  },
+  {
+    "role": "user",
+    "text": "transactions with Yan",
+    "time": "2026-08-18 12:01:58"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Yan\n\n\u2022 Transfer \u2192 Yan | \u20b91,200.00 | 2026-08-17 07:25:25\n",
+    "time": "2026-08-18 12:01:58"
+  },
+  {
+    "role": "user",
+    "text": "hii",
+    "time": "2026-08-19 10:26:52"
+  },
+  {
+    "role": "milo",
+    "text": "Hey there! What can I do for you today?",
+    "time": "2026-08-19 10:26:52"
+  },
+  {
+    "role": "user",
+    "text": "hola",
+    "time": "2026-08-19 10:26:55"
+  },
+  {
+    "role": "user",
+    "text": "get me my largest transactions",
+    "time": "2026-08-19 10:27:48"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b9100,000.00 (Deposit) on 2026-08-17 07:24:49.",
+    "time": "2026-08-19 10:27:48"
+  },
+  {
+    "role": "user",
+    "text": "smallest transactions",
+    "time": "2026-08-19 10:27:55"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction was \u20b9100.00 (Transfer \u2192 sky) on 2026-08-17 07:24:58.",
+    "time": "2026-08-19 10:27:55"
+  },
+  {
+    "role": "user",
+    "text": "hey",
+    "time": "2026-08-19 10:28:02"
+  },
+  {
+    "role": "milo",
+    "text": "Hello! I'm Milo, your SmartBank AI Assistant. How can I help you today?",
+    "time": "2026-08-19 10:28:02"
   }
 ]

@@ -18,11 +18,21 @@ from ai.banking_ai import (
 
 
 # ============================================================
-# Gemini setup
+# Ollama setup
 # ============================================================
+# Replaces the old Gemini client. Ollama runs locally (default
+# http://localhost:11434) and needs no API key -- just the daemon
+# running (`ollama serve`, usually auto-started after install) and a
+# model pulled (`ollama pull llama3.1`, or whatever you set below).
+#
+# Configure via .env or environment variables:
+#   OLLAMA_HOST  -- default http://localhost:11434
+#   OLLAMA_MODEL -- default llama3.1
 
-_gemini_ready = False
-_gemini_client = None
+_ollama_ready = False
+_ollama_model = "llama3.2:1b" 
+_ollama_host = "http://localhost:11434"
+_requests = None
 
 try:
     from dotenv import load_dotenv, find_dotenv
@@ -38,20 +48,67 @@ try:
 except ImportError:
     print("[Milo startup] python-dotenv not installed; skipping .env load")
 
+_ollama_model = os.getenv("OLLAMA_MODEL", _ollama_model)
+_ollama_host = os.getenv("OLLAMA_HOST", _ollama_host).rstrip("/")
+
 try:
-    from google import genai
+    import requests as _requests
 
-    _api_key = os.getenv("GEMINI_API_KEY")
-
-    if _api_key:
-        _gemini_client = genai.Client(api_key=_api_key)
-        _gemini_ready = True
-        print(f"[Milo startup] Gemini ready (key found, length={len(_api_key)})")
-    else:
-        print("[Milo startup] GEMINI_API_KEY not found in environment -- Gemini disabled")
+    try:
+        _resp = _requests.get(f"{_ollama_host}/api/tags", timeout=2)
+        if _resp.status_code == 200:
+            _available_models = [m.get("name", "") for m in _resp.json().get("models", [])]
+            _model_present = any(
+                m == _ollama_model or m.startswith(_ollama_model + ":")
+                for m in _available_models
+            )
+            if _model_present or not _available_models:
+                _ollama_ready = True
+                print(f"[Milo startup] Ollama ready at {_ollama_host} (model={_ollama_model})")
+            else:
+                print(
+                    f"[Milo startup] Ollama is running but '{_ollama_model}' isn't pulled. "
+                    f"Run: ollama pull {_ollama_model}  -- Ollama disabled until then."
+                )
+        else:
+            print(f"[Milo startup] Ollama responded with status {_resp.status_code} -- disabled")
+    except _requests.exceptions.RequestException as e:
+        print(
+            f"[Milo startup] Could not reach Ollama at {_ollama_host} "
+            f"({type(e).__name__}). Is 'ollama serve' running? -- Ollama disabled"
+        )
 
 except ImportError:
-    print("[Milo startup] google-genai not installed -- Gemini disabled")
+    print("[Milo startup] 'requests' not installed (pip install requests) -- Ollama disabled")
+
+
+def _ollama_generate(prompt: str):
+    """
+    Sends a single-turn prompt to the local Ollama server and returns the
+    model's text response, or None on failure / if Ollama isn't ready.
+    This is the drop-in replacement for the old
+    `_gemini_client.models.generate_content(...)` call -- every call site
+    below just swapped that line for `_ollama_generate(prompt)`.
+    """
+    if not _ollama_ready:
+        return None
+    try:
+        response = _requests.post(
+            f"{_ollama_host}/api/generate",
+            json={
+                "model": _ollama_model,
+                "prompt": prompt,
+                "stream": False,
+            },
+            timeout=120,
+        )
+        response.raise_for_status()
+        data = response.json()
+        text = data.get("response")
+        return text.strip() if text else None
+    except Exception as e:
+        print(f"[Ollama error] {type(e).__name__}: {e}")
+        return None
 
 
 # ============================================================
@@ -987,22 +1044,17 @@ def _handle_spending_summary(message: str):
 
     reply = raw_summary
 
-    if _gemini_ready:
-        try:
-            prompt = (
-                "You are Milo, SmartBank's assistant. "
-                "Rephrase this raw spending data as a short, "
-                "friendly 2-3 sentence summary. Mention the total "
-                "and call out the biggest category. "
-                "Don't invent numbers not given below.\n\n" + raw_summary
-            )
-            response = _gemini_client.models.generate_content(
-                model="gemini-flash-latest", contents=prompt
-            )
-            if response and response.text:
-                reply = response.text.strip()
-        except Exception as e:
-            print(f"[Gemini spending-summary error] {type(e).__name__}: {e}")
+    if _ollama_ready:
+        prompt = (
+            "You are Milo, SmartBank's assistant. "
+            "Rephrase this raw spending data as a short, "
+            "friendly 2-3 sentence summary. Mention the total "
+            "and call out the biggest category. "
+            "Don't invent numbers not given below.\n\n" + raw_summary
+        )
+        ollama_reply = _ollama_generate(prompt)
+        if ollama_reply:
+            reply = ollama_reply
 
     return _reply(reply)
 
@@ -1016,20 +1068,20 @@ def get_startup_nudges():
 
 
 # ============================================================
-# Gemini: intent classification (catches phrasing the rules miss)
+# Ollama: intent classification (catches phrasing the rules miss)
 # ============================================================
 
-def _gemini_classify_intent(message: str):
+def _ollama_classify_intent(message: str):
     """
-    When substring pattern-matching finds no intent, ask Gemini to pick
-    the closest matching known intent instead of falling straight to
-    open-ended free-form chat. This lets phrasing the hand-written
-    patterns don't cover -- e.g. "wanna move some cash to my buddy" --
-    still resolve to the right action (transfer) instead of dead-ending
-    in generic Q&A. Returns an intent dict from INTENTS, or None if
-    Gemini is unavailable or thinks nothing fits well.
+    When substring pattern-matching finds no intent, ask the local model
+    to pick the closest matching known intent instead of falling
+    straight to open-ended free-form chat. This lets phrasing the
+    hand-written patterns don't cover -- e.g. "wanna move some cash to
+    my buddy" -- still resolve to the right action (transfer) instead of
+    dead-ending in generic Q&A. Returns an intent dict from INTENTS, or
+    None if Ollama is unavailable or thinks nothing fits well.
     """
-    if not _gemini_ready:
+    if not _ollama_ready:
         return None
 
     intent_list = "\n".join(
@@ -1049,26 +1101,20 @@ def _gemini_classify_intent(message: str):
         "none. No punctuation, no explanation, nothing else."
     )
 
-    try:
-        response = _gemini_client.models.generate_content(
-            model="gemini-flash-latest", contents=prompt
-        )
-        if not response or not response.text:
-            return None
-        name = response.text.strip().lower().strip(" .\"'")
-        return _INTENTS_BY_NAME.get(name)
-    except Exception as e:
-        print(f"[Gemini intent-classify error] {type(e).__name__}: {e}")
+    raw = _ollama_generate(prompt)
+    if not raw:
         return None
+    name = raw.strip().lower().strip(" .\"'")
+    return _INTENTS_BY_NAME.get(name)
 
 
 # ============================================================
-# Gemini fallback (open-ended chat, with recent context)
+# Ollama fallback (open-ended chat, with recent context)
 # ============================================================
 
 def _recent_history_snippet(username, max_messages=6):
     """Builds a short "Recent conversation:" block from chat history so
-    the Gemini fallback can handle follow-ups like "what about last
+    the Ollama fallback can handle follow-ups like "what about last
     week?" instead of answering each message in isolation."""
     if not username:
         return ""
@@ -1087,9 +1133,9 @@ def _recent_history_snippet(username, max_messages=6):
     return "Recent conversation so far:\n" + "\n".join(lines) + "\n\n"
 
 
-def _ask_gemini(message: str, username=None):
+def _ask_ollama(message: str, username=None):
 
-    if not _gemini_ready:
+    if not _ollama_ready:
         return None
 
     history_snippet = _recent_history_snippet(username)
@@ -1106,14 +1152,7 @@ def _ask_gemini(message: str, username=None):
         f"User's message: {message}"
     )
 
-    try:
-        response = _gemini_client.models.generate_content(
-            model="gemini-flash-latest", contents=prompt
-        )
-        return response.text.strip() if response and response.text else None
-    except Exception as e:
-        print(f"[Gemini error] {type(e).__name__}: {e}")
-        return None
+    return _ollama_generate(prompt)
 
 
 _FALLBACK_HELP_TEXT = (
@@ -1136,7 +1175,7 @@ _FALLBACK_HELP_TEXT = (
 # Main assistant
 # ============================================================
 
-# Handlers tried in order (before the generic intent list / Gemini
+# Handlers tried in order (before the generic intent list / Ollama
 # fallback). Each takes the raw message and returns a result dict or
 # None if it doesn't apply. Order matters: transaction queries must be
 # checked before loan/spending since some phrasings could overlap.
@@ -1193,12 +1232,12 @@ def ask_assistant(message: str):
     # --- Normal rule-based intents ---
     intent = _match_intent(message)
 
-    # --- Gemini intent classification ---
+    # --- Ollama intent classification ---
     # Only reached if substring patterns found nothing. Catches phrasing
     # variety the hand-written patterns don't cover, before giving up
     # and treating the message as generic open-ended chat.
     if not intent:
-        intent = _gemini_classify_intent(message)
+        intent = _ollama_classify_intent(message)
 
     if intent:
         reply = random.choice(intent["replies"])
@@ -1207,7 +1246,7 @@ def ask_assistant(message: str):
             reply += "\n\nWould you like me to open that for you? (yes/no)"
         return _finalize(username, _reply(reply))
 
-    # --- Gemini fallback (open-ended, with recent context) ---
+    # --- Ollama fallback (open-ended, with recent context) ---
     _last_action[pending_key] = None
-    gemini_reply = _ask_gemini(message, username)
-    return _finalize(username, _reply(gemini_reply or _FALLBACK_HELP_TEXT))
+    ollama_reply = _ask_ollama(message, username)
+    return _finalize(username, _reply(ollama_reply or _FALLBACK_HELP_TEXT))

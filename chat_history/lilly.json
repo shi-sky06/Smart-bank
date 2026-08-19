@@ -298,5 +298,125 @@
     "role": "milo",
     "text": "\ud83d\udcb0 Your largest transaction with Yan was \u20b95,000.00 (Transfer \u2192 Yan) on 2026-08-10 04:36:49.",
     "time": "2026-08-17 11:53:48"
+  },
+  {
+    "role": "user",
+    "text": "how many withdrawals this month",
+    "time": "2026-08-18 15:05:42"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udd22 You have 1 transaction (Withdraw) between 2026-08-01 and 2026-08-18.",
+    "time": "2026-08-18 15:05:42"
+  },
+  {
+    "role": "user",
+    "text": "transactions over 5000",
+    "time": "2026-08-18 15:05:59"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions over \u20b95,000.00\n\n\u2022 Deposit | \u20b945,000.00 | 2026-08-10 10:24:15\n\u2022 Transfer \u2192 Yan | \u20b95,000.00 | 2026-08-10 04:36:49\n",
+    "time": "2026-08-18 15:05:59"
+  },
+  {
+    "role": "user",
+    "text": "how much did I spend this month",
+    "time": "2026-08-18 15:06:11"
+  },
+  {
+    "role": "milo",
+    "text": "\u2795 3 transactions between 2026-08-01 and 2026-08-18, totaling \u20b953,000.00.",
+    "time": "2026-08-18 15:06:11"
+  },
+  {
+    "role": "user",
+    "text": "spending summary",
+    "time": "2026-08-18 15:06:35"
+  },
+  {
+    "role": "milo",
+    "text": "Total spent in the last 30 days: \u20b98,000.00 across 2 transactions.\n- Transfer: \u20b95,000.00\n- Withdraw: \u20b93,000.00",
+    "time": "2026-08-18 15:07:37"
+  },
+  {
+    "role": "user",
+    "text": "explain what an EMI is",
+    "time": "2026-08-18 15:07:44"
+  },
+  {
+    "role": "user",
+    "text": "what's the weather like",
+    "time": "2026-08-18 15:09:18"
+  },
+  {
+    "role": "milo",
+    "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans\n\u2022 Transactions (by type, date, date range, person, or amount)\n\u2022 Spending summary\n\u2022 Smallest / largest transaction\n\u2022 Totals and counts\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"largest withdrawal this month\".",
+    "time": "2026-08-18 15:09:49"
+  },
+  {
+    "role": "user",
+    "text": "cakes",
+    "time": "2026-08-19 09:31:23"
+  },
+  {
+    "role": "milo",
+    "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans\n\u2022 Transactions (by type, date, date range, person, or amount)\n\u2022 Spending summary\n\u2022 Smallest / largest transaction\n\u2022 Totals and counts\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"largest withdrawal this month\".",
+    "time": "2026-08-19 09:31:23"
+  },
+  {
+    "role": "user",
+    "text": "hii",
+    "time": "2026-08-19 10:10:40"
+  },
+  {
+    "role": "milo",
+    "text": "Hey there! What can I do for you today?",
+    "time": "2026-08-19 10:10:40"
+  },
+  {
+    "role": "user",
+    "text": "what is loan",
+    "time": "2026-08-19 10:10:46"
+  },
+  {
+    "role": "user",
+    "text": "I want to transfer money",
+    "time": "2026-08-19 10:11:03"
+  },
+  {
+    "role": "milo",
+    "text": "Let's get your transfer done! Go to Transfer \u2192 enter the recipient's username \u2192 enter the amount \u2192 confirm the transaction. Your balance will be updated automatically.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-19 10:11:04"
+  },
+  {
+    "role": "user",
+    "text": "no",
+    "time": "2026-08-19 10:11:09"
+  },
+  {
+    "role": "milo",
+    "text": "No problem! Let me know if you need anything else.",
+    "time": "2026-08-19 10:11:09"
+  },
+  {
+    "role": "user",
+    "text": "loan",
+    "time": "2026-08-19 10:11:14"
+  },
+  {
+    "role": "user",
+    "text": "cakes",
+    "time": "2026-08-19 10:11:21"
+  },
+  {
+    "role": "user",
+    "text": "transactions on 12 aug 2026",
+    "time": "2026-08-19 10:11:36"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found on 2026-08-12.",
+    "time": "2026-08-19 10:11:36"
   }
 ]
