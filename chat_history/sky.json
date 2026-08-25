@@ -1,231 +1,6 @@
 [
   {
     "role": "user",
-    "text": "smallest deposits",
-    "time": "2026-08-13 10:31:02"
-  },
-  {
-    "role": "milo",
-    "text": "\ud83d\udcb8 Your smallest transaction (Deposit) was \u20b92,000.00 (Deposit) on 2026-08-05 10:01:07.",
-    "time": "2026-08-13 10:31:02"
-  },
-  {
-    "role": "user",
-    "text": "hii cakes",
-    "time": "2026-08-17 12:35:02"
-  },
-  {
-    "role": "milo",
-    "text": "Hey there! What can I do for you today?",
-    "time": "2026-08-17 12:35:02"
-  },
-  {
-    "role": "user",
-    "text": "cake",
-    "time": "2026-08-17 12:35:08"
-  },
-  {
-    "role": "milo",
-    "text": "I might not have any cake to share, but I'm always here to help with your SmartBank account! You can ask me to look up past transactions, check account details, or guide you around the app. What can I help you with today?",
-    "time": "2026-08-17 12:35:12"
-  },
-  {
-    "role": "user",
-    "text": "my account summary",
-    "time": "2026-08-17 12:35:29"
-  },
-  {
-    "role": "milo",
-    "text": "You can view your current balance from the Dashboard page.\n\nWould you like me to open that for you? (yes/no)",
-    "time": "2026-08-17 12:35:42"
-  },
-  {
-    "role": "user",
-    "text": "loans pending??",
-    "time": "2026-08-17 12:35:52"
-  },
-  {
-    "role": "milo",
-    "text": "Let's get your loan application started! Go to Loans \u2192 select the loan type \u2192 enter the amount and required details \u2192 upload your documents \u2192 submit the application.\n\nWould you like me to open that for you? (yes/no)",
-    "time": "2026-08-17 12:35:53"
-  },
-  {
-    "role": "user",
-    "text": "pending amount",
-    "time": "2026-08-17 12:36:10"
-  },
-  {
-    "role": "milo",
-    "text": "You can check your pending loan balance and details by heading over to the **Loans** page. If you're looking for pending transactions or charges on your main account, you can find those on the **Transactions** or **Dashboard** page. \n\nWould you like me to open the Loans page for you?",
-    "time": "2026-08-17 12:36:15"
-  },
-  {
-    "role": "user",
-    "text": "do i have ongoing loan",
-    "time": "2026-08-17 12:36:43"
-  },
-  {
-    "role": "milo",
-    "text": "I'm not sure I understood that. You can ask me about:\n\u2022 Deposits\n\u2022 Withdrawals\n\u2022 Transfers\n\u2022 Loans\n\u2022 Transactions (by type, date, date range, person, or amount)\n\u2022 Spending summary\n\u2022 Smallest / largest transaction\n\u2022 Totals and counts\n\u2022 Banking services\n\nTry something like \"check my balance\" or \"largest withdrawal this month\".",
-    "time": "2026-08-17 12:36:49"
-  },
-  {
-    "role": "user",
-    "text": "check my balance",
-    "time": "2026-08-17 14:21:19"
-  },
-  {
-    "role": "milo",
-    "text": "You can view your current balance from the Dashboard page.\n\nWould you like me to open that for you? (yes/no)",
-    "time": "2026-08-17 14:21:19"
-  },
-  {
-    "role": "user",
-    "text": "yes",
-    "time": "2026-08-17 14:21:26"
-  },
-  {
-    "role": "milo",
-    "text": "Great, opening that for you now.",
-    "time": "2026-08-17 14:21:26"
-  },
-  {
-    "role": "user",
-    "text": "get my largest withdrawal",
-    "time": "2026-08-17 14:21:51"
-  },
-  {
-    "role": "milo",
-    "text": "\ud83d\udcb0 Your largest transaction (Withdraw) was \u20b9100,000.00 (Withdraw) on 2026-08-17 04:11:47.",
-    "time": "2026-08-17 14:21:52"
-  },
-  {
-    "role": "user",
-    "text": "smallest deposite",
-    "time": "2026-08-17 14:22:23"
-  },
-  {
-    "role": "milo",
-    "text": "\ud83d\udcb8 Your smallest transaction (Deposit) was \u20b92,000.00 (Deposit) on 2026-08-05 10:01:07.",
-    "time": "2026-08-17 14:22:24"
-  },
-  {
-    "role": "user",
-    "text": "smallest transfer to Shifa",
-    "time": "2026-08-17 14:22:36"
-  },
-  {
-    "role": "milo",
-    "text": "\ud83d\udcb8 Your smallest transaction (Transfer) was \u20b92,000.00 (Transfer \u2192 potter) on 2026-08-07 08:59:42.",
-    "time": "2026-08-17 14:22:36"
-  },
-  {
-    "role": "user",
-    "text": "smallest transfer on 12-08-2026",
-    "time": "2026-08-17 14:23:30"
-  },
-  {
-    "role": "milo",
-    "text": "\ud83d\udcb8 Your smallest transaction (Transfer) was \u20b92,000.00 (Transfer \u2192 potter) on 2026-08-07 08:59:42.",
-    "time": "2026-08-17 14:23:30"
-  },
-  {
-    "role": "user",
-    "text": "transaction on 12-08-2026",
-    "time": "2026-08-17 14:23:59"
-  },
-  {
-    "role": "milo",
-    "text": "I can look up transactions for a specific date \u2014 try something like \"transactions on 2024-05-01\" or \"transactions on 10 aug 2026\".",
-    "time": "2026-08-17 14:23:59"
-  },
-  {
-    "role": "user",
-    "text": "transactions on 12 aug 2026",
-    "time": "2026-08-17 14:24:22"
-  },
-  {
-    "role": "milo",
-    "text": "\ud83d\udcdc Transactions on 2026-08-12\n\n\u2022 Transfer \u2192 lilly | \u20b950,000.00 | 2026-08-12 12:41:16\n\u2022 Transfer \u2192 Shifa | \u20b950,000.00 | 2026-08-12 08:47:16\n\u2022 International Transfer \u2192 Shifa (Australia) | \u20b945,675.00 | 2026-08-12 07:10:16\n",
-    "time": "2026-08-17 14:24:22"
-  },
-  {
-    "role": "user",
-    "text": "transaction on 13 aug 2026",
-    "time": "2026-08-17 14:24:36"
-  },
-  {
-    "role": "milo",
-    "text": "\ud83d\udcdc Transactions on 2026-08-13\n\n\u2022 Withdraw | \u20b923,000.00 | 2026-08-13 08:47:38\n\u2022 Transfer \u2192 Amaira | \u20b945,000.00 | 2026-08-13 08:46:49\n\u2022 International Transfer \u2192 Diya (France) | \u20b950,263.08 | 2026-08-13 08:46:12\n\u2022 International Transfer \u2192 rakshitha (Singapore) | \u20b9378,343.78 | 2026-08-13 06:01:27\n\u2022 Transfer \u2192 malfoy | \u20b950,000.00 | 2026-08-13 06:00:28\n\u2022 Withdraw | \u20b950,000.00 | 2026-08-13 06:00:00\n",
-    "time": "2026-08-17 14:24:36"
-  },
-  {
-    "role": "user",
-    "text": "what is my largest transaction",
-    "time": "2026-08-17 16:28:18"
-  },
-  {
-    "role": "milo",
-    "text": "\ud83d\udcb0 Your largest transaction was \u20b91,000,000.00 (Deposit) on 2026-08-11 10:19:34.",
-    "time": "2026-08-17 16:28:18"
-  },
-  {
-    "role": "user",
-    "text": "largest transaction on 17 aug 2026",
-    "time": "2026-08-18 09:47:14"
-  },
-  {
-    "role": "milo",
-    "text": "\ud83d\udcb0 Your largest transaction on 2026-08-17 was \u20b9100,000.00 (Withdraw) on 2026-08-17 04:11:47.",
-    "time": "2026-08-18 09:47:15"
-  },
-  {
-    "role": "user",
-    "text": "smallest transaction with Shifa on 17 aug 2026",
-    "time": "2026-08-18 09:47:41"
-  },
-  {
-    "role": "milo",
-    "text": "\ud83d\udcb8 Your smallest transaction with Shifa on 2026-08-17 was \u20b910,000.00 (Transfer \u2192 Shifa) on 2026-08-17 04:11:38.",
-    "time": "2026-08-18 09:47:41"
-  },
-  {
-    "role": "user",
-    "text": "transactions on 17 aug 2026",
-    "time": "2026-08-18 09:48:45"
-  },
-  {
-    "role": "milo",
-    "text": "\ud83d\udcdc Transactions on 2026-08-17\n\n\u2022 Deposit | \u20b90.12 | 2026-08-17 10:58:50\n\u2022 Deposit | \u20b91.10 | 2026-08-17 10:58:30\n\u2022 Withdraw | \u20b9100,000.00 | 2026-08-17 04:11:47\n\u2022 Transfer \u2192 Shifa | \u20b910,000.00 | 2026-08-17 04:11:38\n",
-    "time": "2026-08-18 09:48:45"
-  },
-  {
-    "role": "user",
-    "text": "hii",
-    "time": "2026-08-18 10:53:25"
-  },
-  {
-    "role": "milo",
-    "text": "Hello! I'm Milo, your SmartBank AI Assistant. How can I help you today?",
-    "time": "2026-08-18 10:53:25"
-  },
-  {
-    "role": "user",
-    "text": "is it ollma",
-    "time": "2026-08-18 10:53:30"
-  },
-  {
-    "role": "user",
-    "text": "hiii",
-    "time": "2026-08-18 10:56:14"
-  },
-  {
-    "role": "milo",
-    "text": "Hello! I'm Milo, your SmartBank AI Assistant. How can I help you today?",
-    "time": "2026-08-18 10:56:14"
-  },
-  {
-    "role": "user",
     "text": "my largest transactions done",
     "time": "2026-08-18 10:56:24"
   },
@@ -498,5 +273,230 @@
     "role": "user",
     "text": "ice",
     "time": "2026-08-19 11:56:47"
+  },
+  {
+    "role": "user",
+    "text": "hello",
+    "time": "2026-08-20 12:41:30"
+  },
+  {
+    "role": "milo",
+    "text": "Hello! I'm Milo, your SmartBank AI Assistant. How can I help you today?",
+    "time": "2026-08-20 12:41:30"
+  },
+  {
+    "role": "user",
+    "text": "transfer",
+    "time": "2026-08-20 12:41:35"
+  },
+  {
+    "role": "milo",
+    "text": "Let's get your transfer done! Go to Transfer \u2192 enter the recipient's username \u2192 enter the amount \u2192 confirm the transaction. Your balance will be updated automatically.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-20 12:41:35"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-20 12:41:39"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-20 12:41:39"
+  },
+  {
+    "role": "user",
+    "text": "hhii",
+    "time": "2026-08-21 15:16:41"
+  },
+  {
+    "role": "milo",
+    "text": "Hi! Ask me about deposits, withdrawals, transfers, loans, or your balance.",
+    "time": "2026-08-21 15:16:41"
+  },
+  {
+    "role": "user",
+    "text": "hello\\",
+    "time": "2026-08-21 15:16:47"
+  },
+  {
+    "role": "milo",
+    "text": "Hey there! What can I do for you today?",
+    "time": "2026-08-21 15:16:47"
+  },
+  {
+    "role": "user",
+    "text": "hey",
+    "time": "2026-08-21 15:16:56"
+  },
+  {
+    "role": "milo",
+    "text": "Hey there! What can I do for you today?",
+    "time": "2026-08-21 15:16:56"
+  },
+  {
+    "role": "user",
+    "text": "can i know about my transactions",
+    "time": "2026-08-21 15:17:10"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To view your transactions, open the Transactions page to see your recent deposits, withdrawals, and transfers.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-21 15:17:11"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-21 15:17:13"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-21 15:17:13"
+  },
+  {
+    "role": "user",
+    "text": "i want to know about  my largest transfer",
+    "time": "2026-08-21 15:17:35"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction (Transfer) was \u20b9378,343.78 (International Transfer \u2192 rakshitha (Singapore)) on 2026-08-13 06:01:27.",
+    "time": "2026-08-21 15:17:36"
+  },
+  {
+    "role": "user",
+    "text": "smallest",
+    "time": "2026-08-21 15:17:43"
+  },
+  {
+    "role": "user",
+    "text": "smallest transaction",
+    "time": "2026-08-21 15:17:52"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction was \u20b90.12 (Deposit) on 2026-08-17 10:58:50.",
+    "time": "2026-08-21 15:17:52"
+  },
+  {
+    "role": "user",
+    "text": "transfers on 12 aug 2026",
+    "time": "2026-08-21 15:18:13"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To transfer money, open the Transfer page, enter the recipient's username, enter the amount, and click Confirm Transfer.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-21 15:18:13"
+  },
+  {
+    "role": "user",
+    "text": "transactions on 12 aug 2026",
+    "time": "2026-08-21 15:18:26"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions on 2026-08-12\n\n\u2022 Transfer \u2192 lilly | \u20b950,000.00 | 2026-08-12 12:41:16\n\u2022 Transfer \u2192 Shifa | \u20b950,000.00 | 2026-08-12 08:47:16\n\u2022 International Transfer \u2192 Shifa (Australia) | \u20b945,675.00 | 2026-08-12 07:10:16\n",
+    "time": "2026-08-21 15:18:26"
+  },
+  {
+    "role": "user",
+    "text": "hii i need to transfer amount",
+    "time": "2026-08-25 10:32:50"
+  },
+  {
+    "role": "milo",
+    "text": "Sure! To transfer money, open the Transfer page, enter the recipient's username, enter the amount, and click Confirm Transfer.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-25 10:32:50"
+  },
+  {
+    "role": "user",
+    "text": "yes",
+    "time": "2026-08-25 10:32:52"
+  },
+  {
+    "role": "milo",
+    "text": "Great, opening that for you now.",
+    "time": "2026-08-25 10:32:52"
+  },
+  {
+    "role": "user",
+    "text": "fetch my transactions with lilly",
+    "time": "2026-08-25 10:33:28"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Lilly\n\n\u2022 Transfer \u2192 lilly | \u20b95,000.00 | 2026-08-25 05:03:05\n\u2022 Transfer \u2192 lilly | \u20b950,000.00 | 2026-08-12 12:41:16\n",
+    "time": "2026-08-25 10:33:28"
+  },
+  {
+    "role": "user",
+    "text": "transactions with lillyon 8 aug 2026",
+    "time": "2026-08-25 10:33:54"
+  },
+  {
+    "role": "milo",
+    "text": "No transactions found with Lillyon on 2026-08-08.",
+    "time": "2026-08-25 10:33:54"
+  },
+  {
+    "role": "user",
+    "text": "transactions with alex",
+    "time": "2026-08-25 10:34:09"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcdc Transactions with Alex\n\n\u2022 Transfer \u2192 alex | \u20b915,000.00 | 2026-08-04 10:12:33\n",
+    "time": "2026-08-25 10:34:09"
+  },
+  {
+    "role": "user",
+    "text": "smallest transaction with lilly",
+    "time": "2026-08-25 10:34:22"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction with Lilly was \u20b95,000.00 (Transfer \u2192 lilly) on 2026-08-25 05:03:05.",
+    "time": "2026-08-25 10:34:22"
+  },
+  {
+    "role": "user",
+    "text": "show my last 5 transactions",
+    "time": "2026-08-25 10:46:49"
+  },
+  {
+    "role": "milo",
+    "text": "Let's review your transaction history! Go to Transactions \u2192 view your recent deposits, withdrawals, and transfers \u2192 select a transaction if you need more details.\n\nWould you like me to open that for you? (yes/no)",
+    "time": "2026-08-25 10:46:49"
+  },
+  {
+    "role": "user",
+    "text": "get last 5 transactions",
+    "time": "2026-08-25 10:57:31"
+  },
+  {
+    "role": "milo",
+    "text": "Here are your last 5 transactions:\n\n\u2022 Transfer \u2192 lilly | \u20b95,000.00 | 2026-08-25 05:03:05\n\u2022 Transfer \u2192 Shifa | \u20b920,000.00 | 2026-08-18 04:12:41\n\u2022 Withdraw \u2192 - | \u20b95,000.00 | 2026-08-18 04:12:09\n\u2022 Deposit \u2192 - | \u20b90.12 | 2026-08-17 10:58:50\n\u2022 Deposit \u2192 - | \u20b91.10 | 2026-08-17 10:58:30",
+    "time": "2026-08-25 10:57:31"
+  },
+  {
+    "role": "user",
+    "text": "fetch smallest transactions",
+    "time": "2026-08-25 10:57:42"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb8 Your smallest transaction was \u20b90.12 (Deposit) on 2026-08-17 10:58:50.",
+    "time": "2026-08-25 10:57:42"
+  },
+  {
+    "role": "user",
+    "text": "largest transactions",
+    "time": "2026-08-25 10:57:50"
+  },
+  {
+    "role": "milo",
+    "text": "\ud83d\udcb0 Your largest transaction was \u20b91,000,000.00 (Deposit) on 2026-08-11 10:19:34.",
+    "time": "2026-08-25 10:57:50"
   }
 ]

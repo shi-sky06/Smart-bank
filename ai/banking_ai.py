@@ -649,3 +649,32 @@ def get_nudges():
             )
 
     return nudges
+def get_recent_transactions(limit=5):
+    if not session.current_user:
+        return "Please log in first to check your transactions."
+
+    user_id = session.current_user[0]
+    conn = sqlite3.connect("bank.db")
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        SELECT transaction_type, receiver, amount, date
+        FROM transactions
+        WHERE user_id=?
+        ORDER BY date DESC
+        LIMIT ?
+        """,
+        (user_id, limit)
+    )
+    rows = cursor.fetchall()
+    conn.close()
+
+    if not rows:
+        return "You don't have any transactions yet."
+
+    lines = []
+    for t_type, receiver, amount, date in rows:
+        lines.append(f"• {t_type} → {receiver or '-'} | ₹{amount:,.2f} | {date}")
+
+    return f"Here are your last {len(rows)} transactions:\n\n" + "\n".join(lines)
+

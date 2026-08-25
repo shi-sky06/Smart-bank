@@ -14,6 +14,7 @@ from ai.banking_ai import (
     get_extreme_transaction_filtered,
     get_transactions_filtered,
     get_transaction_aggregate,
+    get_recent_transactions,
 )
 
 
@@ -30,7 +31,7 @@ from ai.banking_ai import (
 #   OLLAMA_MODEL -- default llama3.1
 
 _ollama_ready = False
-_ollama_model = "llama3.2:1b" 
+_ollama_model = "llama3.2:1b"
 _ollama_host = "http://localhost:11434"
 _requests = None
 
@@ -876,9 +877,15 @@ def _handle_transaction_query(message: str):
         types=txn_types, amount_min=amount_min, amount_max=amount_max, mode=mode,
     )
 
-    # Just mentions "transaction(s)" with no specifics -- let the normal
-    # "transactions" intent handle the recent-5 list.
-    return result
+    if result is not None:
+        return result
+
+    # Bare "transaction(s)" mention with no specific filters -- e.g.
+    # "show my last 5 transactions" / "recent transactions". Extract an
+    # optional count, default to 5, and return the list inline.
+    limit_match = re.search(r"(?:last|recent|past|latest)\s+(\d+)", text)
+    limit = int(limit_match.group(1)) if limit_match else 5
+    return _reply(get_recent_transactions(limit=limit))
 
 
 # ============================================================
