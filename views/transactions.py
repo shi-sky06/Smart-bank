@@ -147,7 +147,10 @@ class TransactionsPage(ctk.CTkFrame):
             )
 
         self.transaction_box.configure(state="disabled")
-
+            
+            
+            
+    
     # =========================
     # Download Statement (PDF)
     # =========================
